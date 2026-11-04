@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bookings | Lovely Nails Yakima (salon view)</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#E0218A">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="salon-page">
+  <div class="demo-bar" role="note">
+    <strong>Demo salon view.</strong> Bookings are saved in this browser only. A live site would use a real database and a salon login.
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="index.html" aria-label="Back to the Lovely Nails site">
+        <span class="wm-flowers" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="wm-lovely">Lovely</span>
+        <span class="wm-nails">Nails</span>
+      </a>
+      <nav class="main-nav" aria-label="Main">
+        <a href="index.html">Website</a>
+        <a class="nav-book" href="index.html#book">New booking</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="wrap">
+      <h1 class="section-title left"><span class="script">Salon</span> Bookings</h1>
+      <p class="section-sub left">Newest first. Call or text each customer to confirm.</p>
+
+      <div class="salon-toolbar">
+        <div class="tabs" role="tablist" aria-label="Filter bookings">
+          <button type="button" role="tab" class="tab is-active" data-filter="active" aria-selected="true">Active <span data-count="active"></span></button>
+          <button type="button" role="tab" class="tab" data-filter="cancelled" aria-selected="false">Cancelled <span data-count="cancelled"></span></button>
+          <button type="button" role="tab" class="tab" data-filter="all" aria-selected="false">All <span data-count="all"></span></button>
+        </div>
+      </div>
+
+      <div id="booking-list" class="booking-list" aria-live="polite"></div>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/booking-store.js"></script>
+  <script src="js/salon.js"></script>
+</body>
+</html>
