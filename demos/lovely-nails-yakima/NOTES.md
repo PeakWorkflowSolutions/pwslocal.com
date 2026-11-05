@@ -14,13 +14,13 @@ Bookings are saved in the browser that made them. Show the demo on one device: m
 
 - **Home:** the hero photo (holiday snowflake nails), the "Lovely Nails" wordmark done in text and CSS, a "Walk-ins welcome" badge, Book Now and click-to-call buttons, today's hours with a live "open now" line, the address with a map link, the 4.5 Google and 4.4 Facebook ratings, and the full weekly hours.
 - **What customers mention:** themes from the brief only (techs who take their time, hot stones and paraffin, friendly staff, kid-friendly chair, husbands welcome, ideas if you can't decide).
-- **Services:** 12 services from the brief, each with a short plain description and a Book button that jumps straight to step 2 of the booking flow with that service picked. The section is labeled "Prices to confirm with the salon".
+- **Services:** 12 services from the brief, each with a short plain description and a Book button that jumps straight to step 2 of the booking flow with that service picked.
 - **Gallery:** the 9 photos from `photos/`, resized for fast loading. Each has a caption and a tag (Nail art, Pedicure, Seasonal design). Tap a photo to see it bigger. No stock photos.
 - **Reviews:** the 5 real quotes, word for word. "Golden nails for the win..." is labeled as the salon's own Instagram post, not as a customer review.
 - **Book Now:** a 4-step booking flow (service, date and time, technician, details) and a confirmation screen with an `LN-XXXXXX` reference.
 - **Contact:** address, a Google Maps link, tap-to-call, the Facebook page, hours, and the real logo cropped from the center tile of `fb-salon-1.jpg`.
 - **Salon view (`index.html#salon`):** all bookings, newest first, with date, time, service, length, customer name, phone (tap to call or text), technician, notes and reference. It has Active, Cancelled and All tabs, and a two-tap cancel (Cancel booking, then Yes, cancel). It updates live when a booking comes in from another tab.
-- A sticky Call / Book Now bar on phones. The yellow "To confirm" tags were removed at Marcos's request (Nov 4); the "Prices to confirm with the salon" box on Services stays.
+- A sticky Call / Book Now bar on phones. The yellow "To confirm" tags were removed at Marcos's request (Nov 4). The "Prices to confirm with the salon" box on Services was also removed. Only the small "price seen in a review" notes remain.
 
 ### Booking rules
 

@@ -151,11 +151,6 @@ h1, h2, h3 { line-height: 1.15; margin: 0 0 .5em; }
 .section-sub { text-align: center; color: var(--muted); margin: -4px auto 26px; max-width: 36em; }
 
 /* ---------- Services ---------- */
-.price-note {
-  background: #FFFBEA; border: 2px dashed var(--gold); border-radius: var(--radius); padding: 14px 18px; margin: 0 auto 24px; max-width: 760px;
-}
-.price-note h3 { font-size: 18px; margin-bottom: 4px; color: #6B4A00; }
-.price-note p { margin: 0; font-size: 15px; color: #5A4A1A; }
 .service-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
 .service-card {
   background: #fff; border: 2px solid var(--line); border-radius: var(--radius); padding: 18px; display: flex; flex-direction: column;
