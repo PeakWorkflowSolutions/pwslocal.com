@@ -4,9 +4,11 @@ Prepared Nov 4, 2026 for the follow-up with Lovely Nails Yakima. This is a warm 
 
 ## How to open it
 
-Double-click `index.html`. Everything runs from these files: no server, no install, no build step. The salon view is `salon.html`, also linked in the footer as "Salon view: bookings".
+Double-click `index.html`. Everything runs from these files: no server, no install, no build step. The salon view is `index.html#salon`, linked in the footer as "Salon view: bookings" (`salon.html` also redirects there).
 
-Bookings are saved in the browser that made them. Show the demo on one device: book on `index.html`, then open `salon.html` in the same browser.
+There is also a private artifact copy for clicking through in Claude: https://claude.ai/artifact/GRSBhsYtKdKoZuELsfhLW6. It starts visible to Marcos only.
+
+Bookings are saved in the browser that made them. Show the demo on one device: make a booking, then open the salon view in the same browser.
 
 ## What was built
 
@@ -17,7 +19,7 @@ Bookings are saved in the browser that made them. Show the demo on one device: b
 - **Reviews:** the 5 real quotes, word for word. "Golden nails for the win..." is labeled as the salon's own Instagram post, not as a customer review.
 - **Book Now:** a 4-step booking flow (service, date and time, technician, details) and a confirmation screen with an `LN-XXXXXX` reference.
 - **Contact:** address, a Google Maps link, tap-to-call, the Facebook page, hours, and the real logo cropped from the center tile of `fb-salon-1.jpg`.
-- **Salon view (`salon.html`):** all bookings, newest first, with date, time, service, length, customer name, phone (tap to call or text), technician, notes and reference. It has Active, Cancelled and All tabs, and a two-tap cancel (Cancel booking, then Yes, cancel). It updates live when a booking comes in from another tab.
+- **Salon view (`index.html#salon`):** all bookings, newest first, with date, time, service, length, customer name, phone (tap to call or text), technician, notes and reference. It has Active, Cancelled and All tabs, and a two-tap cancel (Cancel booking, then Yes, cancel). It updates live when a booking comes in from another tab.
 - A sticky Call / Book Now bar on phones. Every "To confirm" item has a yellow tag.
 
 ### Booking rules
@@ -78,7 +80,7 @@ Also remove `<meta name="robots" content="noindex">` and the black demo bar when
 
 ```
 index.html            site (Home, Services, Gallery, Reviews, Book Now, Contact)
-salon.html            salon bookings list
+salon.html            redirects to index.html#salon (the salon bookings list)
 css/styles.css        all styles, mobile first, palette in :root
 js/config.js          EDIT HERE: prices, durations, hours, services, techs
 js/core.js            hours, time slots, validation (shared)
@@ -91,10 +93,11 @@ img/                  resized salon photos, logo crop, favicon
 
 ## Testing done
 
-I ran an automated browser test (Chromium, phone-sized screen, Pacific time) against the files as delivered. All 34 checks passed:
+I ran an automated browser test (Chromium, phone-sized screen, Pacific time) against the files as delivered. All 38 checks passed:
 
 - Booked a **manicure for tomorrow** (Thu Nov 5, 2026, 10:00 AM, with Song) and got reference `LN-XXXXXX` on the confirmation screen with every detail correct.
-- The booking showed up in `salon.html` with service, date, time, name and phone. I cancelled it, and it **disappeared from the Active list** and showed under Cancelled.
+- The booking showed up in the salon view with service, date, time, name and phone. I cancelled it, and it **disappeared from the Active list** and showed under Cancelled.
 - Errors showed for a missing service, date, time, name and phone, and for a short phone number. No pop-up alerts were used.
 - No past dates. Today had no slots earlier than 30 minutes from now. Mon-Sat slots ran 9:00 AM to 6:30 PM and Sunday 10:00 AM to 5:00 PM. The store refused a 7:00 PM booking.
+- With browser storage blocked, booking and cancelling still work (kept in memory for that visit).
 - Newest-first order and live updates between tabs worked. So did the gallery lightbox and the service-card Book buttons. There were no JavaScript errors.

@@ -66,11 +66,19 @@
   /* ---------------- Demo store: this browser only ---------------- */
   function LocalStorageBookingStore() {
     var listeners = [];
+    var memory = null; // used only if the browser blocks localStorage
     function read() {
-      try { var v = JSON.parse(localStorage.getItem(KEY) || "[]"); return Array.isArray(v) ? v : []; }
-      catch (e) { return []; }
+      if (memory) return memory.slice();
+      try { var v = JSON.parse(window.localStorage.getItem(KEY) || "[]"); return Array.isArray(v) ? v : []; }
+      catch (e) { memory = memory || []; return memory.slice(); }
     }
-    function write(all) { localStorage.setItem(KEY, JSON.stringify(all)); notify(); }
+    function write(all) {
+      if (!memory) {
+        try { window.localStorage.setItem(KEY, JSON.stringify(all)); notify(); return; }
+        catch (e) { memory = []; }
+      }
+      memory = all.slice(); notify();
+    }
     function notify() { listeners.forEach(function (fn) { try { fn(); } catch (e) {} }); }
     window.addEventListener("storage", function (e) { if (e.key === KEY) notify(); });
 

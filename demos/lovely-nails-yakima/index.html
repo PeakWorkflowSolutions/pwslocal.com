@@ -32,6 +32,7 @@
         <a href="#gallery">Gallery</a>
         <a href="#reviews">Reviews</a>
         <a href="#contact">Contact</a>
+        <a href="#salon">Salon view</a>
         <a class="nav-book" href="#book">Book Now</a>
       </nav>
     </div>
@@ -345,7 +346,7 @@
     <div class="wrap">
       <p class="footer-mark"><span class="wm-lovely">Lovely</span> <span class="wm-nails">Nails</span> Yakima</p>
       <p>1731 S 1st St Ste 100, Yakima, WA 98901 &middot; <a href="tel:+15094691712">(509) 469-1712</a></p>
-      <p class="footer-small">Demo site by Peak Workflow Solutions &middot; <a href="salon.html">Salon view: bookings</a></p>
+      <p class="footer-small">Demo site by Peak Workflow Solutions &middot; <a href="#salon">Salon view: bookings</a></p>
     </div>
   </footer>
 
@@ -361,10 +362,45 @@
     <p class="lb-cap"></p>
   </dialog>
 
+  <!-- ================= SALON VIEW (index.html#salon) ================= -->
+  <div class="salon-view" id="salon-view">
+    <div class="demo-bar" role="note">
+      <strong>Demo salon view.</strong> Bookings are saved in this browser only. A live site would use a real database and a salon login.
+    </div>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="wordmark" href="#home" aria-label="Back to the Lovely Nails site">
+          <span class="wm-flowers" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="wm-lovely">Lovely</span>
+          <span class="wm-nails">Nails</span>
+        </a>
+        <nav class="main-nav salon-nav" aria-label="Salon">
+          <a href="#home">Website</a>
+          <a class="nav-book" href="#book">New booking</a>
+        </nav>
+      </div>
+    </header>
+    <section class="section">
+      <div class="wrap">
+        <h1 class="section-title left"><span class="script">Salon</span> Bookings</h1>
+        <p class="section-sub left">Newest first. Call or text each customer to confirm.</p>
+        <div class="salon-toolbar">
+          <div class="tabs" role="tablist" aria-label="Filter bookings">
+            <button type="button" role="tab" class="tab is-active" data-filter="active" aria-selected="true">Active <span data-count="active"></span></button>
+            <button type="button" role="tab" class="tab" data-filter="cancelled" aria-selected="false">Cancelled <span data-count="cancelled"></span></button>
+            <button type="button" role="tab" class="tab" data-filter="all" aria-selected="false">All <span data-count="all"></span></button>
+          </div>
+        </div>
+        <div id="booking-list" class="booking-list" aria-live="polite"></div>
+      </div>
+    </section>
+  </div>
+
   <script src="js/config.js"></script>
   <script src="js/core.js"></script>
   <script src="js/booking-store.js"></script>
   <script src="js/site.js"></script>
   <script src="js/booking.js"></script>
+  <script src="js/salon.js"></script>
 </body>
 </html>

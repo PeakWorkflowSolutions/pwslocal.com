@@ -321,8 +321,12 @@ h1, h2, h3 { line-height: 1.15; margin: 0 0 .5em; }
 }
 .action-bar .btn { min-height: 52px; font-size: 17px; }
 
-/* ---------- Salon view ---------- */
-.salon-page { padding-bottom: 0; }
+/* ---------- Salon view (index.html#salon) ---------- */
+.salon-view { display: none; }
+body.is-salon > :not(.salon-view):not(script):not(dialog) { display: none !important; }
+body.is-salon .salon-view { display: block; }
+body.is-salon { padding-bottom: 0; }
+.salon-nav a:not(.nav-book) { display: inline-block; }
 .salon-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-bottom: 16px; }
 .tabs { display: flex; gap: 6px; flex-wrap: wrap; }
 .tab {

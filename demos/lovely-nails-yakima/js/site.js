@@ -51,6 +51,20 @@
   /* Hide "To confirm" tags once confirmed in config */
   if (C.hoursConfirmed) $all('[data-tbc="hours"]').forEach(function (el) { el.hidden = true; });
 
+  /* Salon view router: #salon shows the bookings list, anything else the site */
+  function route() {
+    var salon = location.hash === "#salon";
+    var was = document.body.classList.contains("is-salon");
+    document.body.classList.toggle("is-salon", salon);
+    if (salon && !was) window.scrollTo(0, 0);
+    if (!salon && was) {
+      var target = location.hash && document.querySelector(location.hash);
+      if (target) target.scrollIntoView(); else window.scrollTo(0, 0);
+    }
+  }
+  window.addEventListener("hashchange", route);
+  route();
+
   /* Lightbox */
   var lb = document.getElementById("lightbox");
   if (lb && typeof lb.showModal === "function") {
