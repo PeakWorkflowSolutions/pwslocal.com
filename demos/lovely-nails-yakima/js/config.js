@@ -5,8 +5,8 @@
    services and technicians. The Services section, the booking flow,
    the hours on the home page and the Contact section all read from here.
 
-   Anything with "confirmed: false" shows a visible "To confirm" tag on
-   the site. Flip it to true once the salon has confirmed it.
+   The "...Confirmed: false" flags are a checklist of what the salon
+   still needs to confirm. They do not change what the page shows.
    ===================================================================== */
 
 window.LN_CONFIG = {

@@ -17,7 +17,7 @@
   q('[data-ln="service-choices"]').innerHTML = C.services.map(function (s) {
     return '<label class="choice"><input type="radio" name="serviceId" value="' + esc(s.id) + '">' +
       '<span class="choice-body"><span class="choice-name">' + esc(s.name) + "</span>" +
-      '<span class="choice-price">' + esc(core.priceLabel(s)) + (s.price != null && !C.pricesConfirmed ? " *" : "") + "</span></span></label>";
+      '<span class="choice-price">' + esc(core.priceLabel(s)) + "</span></span></label>";
   }).join("");
 
   /* ---------- Step 3: technicians ---------- */
@@ -55,8 +55,7 @@
     var hrs = core.isValidISODate(state.date) ? core.hoursFor(state.date) : null;
     if (slots.indexOf(state.time) === -1) state.time = "";
     if (!hrs) { info.textContent = ""; box.innerHTML = ""; return; }
-    info.innerHTML = esc(core.formatDateLong(state.date)) + ": open " + esc(core.hoursLabel(hrs)) +
-      (C.hoursConfirmed ? "" : ' <span class="tbc">To confirm</span>');
+    info.innerHTML = esc(core.formatDateLong(state.date)) + ": open " + esc(core.hoursLabel(hrs));
     if (!slots.length) {
       box.innerHTML = '<p class="no-slots">No times left on this day. Please pick another date, or just walk in.</p>';
       return;
@@ -200,7 +199,6 @@
     set("c-ref", b.ref);
     set("c-service", b.serviceName);
     set("c-price", b.priceLabel);
-    q('[data-ln="c-price-tbc"]').hidden = C.pricesConfirmed || b.priceLabel === "Ask the salon";
     set("c-date", core.formatDateLong(b.date));
     set("c-time", core.formatTime(b.time));
     set("c-tech", b.technicianLabel);

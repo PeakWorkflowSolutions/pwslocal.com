@@ -26,8 +26,7 @@
       var state = now.minutes < open ? "Opens " + core.formatTime(h.open)
         : now.minutes < close ? "Open now until " + core.formatTime(h.close)
         : "Closed now";
-      todayEl.innerHTML = esc(core.hoursLabel(h)) + ' <span class="open-state">' + esc(state) + "</span>" +
-        (C.hoursConfirmed ? "" : ' <span class="tbc">To confirm</span>');
+      todayEl.innerHTML = esc(core.hoursLabel(h)) + ' <span class="open-state">' + esc(state) + "</span>";
     }
   }
 
@@ -41,15 +40,11 @@
         "<p>" + esc(s.description) + "</p>" +
         '<div class="sc-foot">' +
           '<p class="sc-price' + (hasPrice ? "" : " is-ask") + '">' + esc(core.priceLabel(s)) +
-            (hasPrice && !C.pricesConfirmed ? ' <span class="tbc">To confirm</span>' : "") +
             (s.priceNote ? '<small>' + esc(s.priceNote) + "</small>" : "") + "</p>" +
           '<a class="btn btn-primary btn-sm" href="#book" data-book-service="' + esc(s.id) + '">Book</a>' +
         "</div></li>";
     }).join("");
   }
-
-  /* Hide "To confirm" tags once confirmed in config */
-  if (C.hoursConfirmed) $all('[data-tbc="hours"]').forEach(function (el) { el.hidden = true; });
 
   /* Salon view router: #salon shows the bookings list, anything else the site */
   function route() {

@@ -20,7 +20,7 @@ Bookings are saved in the browser that made them. Show the demo on one device: m
 - **Book Now:** a 4-step booking flow (service, date and time, technician, details) and a confirmation screen with an `LN-XXXXXX` reference.
 - **Contact:** address, a Google Maps link, tap-to-call, the Facebook page, hours, and the real logo cropped from the center tile of `fb-salon-1.jpg`.
 - **Salon view (`index.html#salon`):** all bookings, newest first, with date, time, service, length, customer name, phone (tap to call or text), technician, notes and reference. It has Active, Cancelled and All tabs, and a two-tap cancel (Cancel booking, then Yes, cancel). It updates live when a booking comes in from another tab.
-- A sticky Call / Book Now bar on phones. Every "To confirm" item has a yellow tag.
+- A sticky Call / Book Now bar on phones. The yellow "To confirm" tags were removed at Marcos's request (Nov 4); the "Prices to confirm with the salon" box on Services stays.
 
 ### Booking rules
 
@@ -39,7 +39,7 @@ Everything is in one file: **`js/config.js`**, marked "SITE SETTINGS (EDIT HERE)
 - `services[].price`, `pricePrefix` and `priceNote` set each price. `price: null` shows "Ask the salon".
 - `hours` holds the open and close times per day. Use `null` for a closed day.
 - `slotStepMinutes`, `minLeadMinutes` and `bookingWindowDays` control how often slots start, the minimum notice for same-day bookings, and how far ahead people can book.
-- `pricesConfirmed`, `hoursConfirmed` and `staffConfirmed`: set these to `true` once the salon confirms, and the "To confirm" tags go away.
+- `pricesConfirmed`, `hoursConfirmed` and `staffConfirmed` are a checklist only; they no longer change the page.
 - `technicians` is the list for step 3. Add names here only after the salon confirms them.
 
 ## What the salon still needs to confirm
