@@ -27,7 +27,6 @@ window.ACT_CONFIG = {
     addressLine2: "Yakima, WA 98903",
     zipNote: "ZIP to confirm: the state filing says 98903, Yelp lists 98902.",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=3901+Emma+Ln+Yakima+WA",
-    currentWebsite: "https://aldenscleanteam.org",
     timezone: "America/Los_Angeles"
   },
 

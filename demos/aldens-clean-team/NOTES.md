@@ -28,7 +28,6 @@ Requests are saved in the browser that made them. For a demo, send a request and
   - service area
   - the address, with a note that the ZIP is to confirm (98903 on the state filing, 98902 on Yelp)
   - a Google Maps link that searches the street address without the ZIP
-  - a link to their current site, aldenscleanteam.org
   - no Facebook or Instagram link
 - **Team view (`#requests`):** all requests newest first, showing service, frequency, preferred date, customer, phone (Call and Text buttons), home details, email and notes. It has Mark contacted, a two-tap Cancel, and Open / Cancelled / All tabs, and it updates live when a request comes in from another tab.
 - A sticky Call Dave / Free Quote bar on phones. Errors show on the page, never as pop-ups. If the browser blocks storage, the form still works for that visit.
@@ -55,7 +54,7 @@ Phone numbers, emails and the address also appear directly in `index.html`. Chan
 7. **Photos.** Before/after photos of real jobs would help a lot. None exist publicly.
 8. **Services.** What does "home organization" cover? Is anything missing or no longer offered?
 9. **Permission** to use the Becky Hosman shout-out and the two Facebook comments, and to link the Instagram video.
-10. **Domain.** They own aldenscleanteam.org. The new site could replace the template site there.
+10. **Domain.** They own aldenscleanteam.org. The new site could replace the template site there. (The link to the old site was removed from the Contact section at Marcos's request.)
 
 ## Moving requests to a real backend later
 
