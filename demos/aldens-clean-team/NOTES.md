@@ -13,7 +13,7 @@ Requests are saved in the browser that made them. For a demo, send a request and
 
 - **Home:** team photo (Lyndsay, Dave and Leah), the name, "Relax! We'll Clean It For you", the tagline "Your satisfaction is our guarantee", a Get a Free Quote button, Call buttons for Dave and Leah, and the service area. Under it is a band with their own line, "Short on Time or just need help? Let us Clean it for you!"
 - **Services:** all 10 services from the brief, each with a short plain description, "Call or message for a free quote" and a Get a quote button that opens the quote form with that service picked. No prices anywhere.
-- **Photos:** only the 3 real files: the team photo with their business card, the flyer (captioned as their flyer, not as their work), and the logo. No stock photos.
+- **Photos:** the team photo with their business card, and the logo. The flyer is left out at Marcos's request because its living-room picture isn't their work. No stock photos.
 - **Kind words:** the two real quotes word for word, attributed as the brief says (a commenter on a local Facebook recommendations thread; a neighbor's endorsement from Linda Larsen Eberle). The realtor shout-out from Becky Hosman is paraphrased, not quoted, and links to her Instagram video. No star rating anywhere.
 - **Get a free quote:** 4 steps:
   1. Service.

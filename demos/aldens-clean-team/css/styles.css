@@ -269,7 +269,7 @@ body.is-team { padding-bottom: 0; }
 @media (min-width: 560px) {
   .hero-actions { grid-template-columns: auto; justify-content: start; }
   .service-grid, .quotes { grid-template-columns: 1fr 1fr; }
-  .gallery { grid-template-columns: repeat(3, 1fr); }
+  .gallery { grid-template-columns: repeat(2, 1fr); max-width: 760px; margin-inline: auto; }
   .choice-grid { grid-template-columns: repeat(4, 1fr); }
   .size-grid { grid-template-columns: 1fr 1fr 2fr; }
   .size-grid .field-wide { grid-column: auto; }
