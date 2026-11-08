@@ -152,6 +152,22 @@ h1, h2, h3 { line-height: 1.15; margin: 0 0 .5em; }
 .steps li.is-current span { background: var(--navy); border-color: var(--navy); color: #fff; }
 .steps li.is-done span { background: var(--green-dark); border-color: var(--green-dark); color: #fff; }
 .step { border: 0; margin: 0; padding: 0; min-width: 0; }
+.steps-5 { grid-template-columns: repeat(5, 1fr); gap: 2px; }
+.steps-5 li { font-size: 11px; }
+.day-note { margin: 10px 0 8px; font-weight: 700; font-size: 15px; color: var(--navy); }
+.day-note:empty { display: none; }
+.slot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.slot { display: block; cursor: pointer; }
+.slot input { position: absolute; opacity: 0; pointer-events: none; }
+.slot span { display: grid; place-items: center; min-height: 50px; border: 2px solid var(--line); border-radius: 10px; font-weight: 700; background: #fff; line-height: 1.1; text-align: center; }
+.slot span small { font-size: 11px; font-weight: 700; color: var(--muted); }
+.slot:hover span { border-color: var(--teal); }
+.slot input:checked + span { background: var(--navy); border-color: var(--navy); color: #fff; }
+.slot input:focus-visible + span { outline: 3px solid var(--teal); outline-offset: 2px; }
+.slot.is-taken { cursor: not-allowed; }
+.slot.is-taken span { background: #F1F2F5; color: #9AA0AE; border-style: dashed; text-decoration: line-through; }
+.slot.is-taken span small { text-decoration: none; }
+.no-slots { grid-column: 1 / -1; margin: 0; padding: 12px; background: var(--teal-soft); border-radius: 10px; font-weight: 700; }
 .step-title { font: 700 22px/1.25 var(--font-serif); color: var(--navy); padding: 0; margin-bottom: 8px; }
 .step-title:focus { outline: none; }
 .step-help { margin: 0 0 14px; color: var(--muted); font-size: 15px; }
@@ -249,6 +265,17 @@ body.is-team { padding-bottom: 0; }
 .rq-card { background: #fff; border: 2px solid var(--line); border-left: 6px solid var(--teal); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); }
 .rq-card.is-contacted { border-left-color: var(--green-dark); }
 .rq-card.is-cancelled { border-left-color: #aaa; opacity: .75; }
+.rq-when { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-bottom: 6px; }
+.rq-date { font-weight: 700; font-size: 18px; color: var(--navy); }
+.rq-time { font-weight: 700; font-size: 18px; color: var(--teal); }
+.rq-address { margin: 0 0 10px; font-weight: 700; }
+.rq-address a { color: var(--ink); }
+.rq-address span { font-size: 12px; font-weight: 700; color: #fff; background: var(--teal); border-radius: 999px; padding: 2px 8px; margin-left: 4px; vertical-align: 2px; }
+.badge-assigned { background: var(--teal-soft); color: #176F8A; }
+.badge-late { background: #FFE4CC; color: #8A4500; }
+.assign { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; color: var(--navy); margin-right: 4px; }
+.assign select { font: inherit; font-size: 15px; min-height: 42px; padding: 6px 10px; border: 2px solid var(--line); border-radius: 10px; background: #fff; }
+.rq-actions .assign { flex-basis: 100%; }
 .rq-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-bottom: 10px; }
 .rq-service { font-weight: 900; font-size: 18px; color: var(--navy); }
 .rq-freq { font-weight: 700; color: var(--muted); }
@@ -274,6 +301,8 @@ body.is-team { padding-bottom: 0; }
   .service-grid, .quotes { grid-template-columns: 1fr 1fr; }
   .gallery { grid-template-columns: repeat(2, 1fr); max-width: 760px; margin-inline: auto; }
   .choice-grid { grid-template-columns: repeat(4, 1fr); }
+  .slot-grid { grid-template-columns: repeat(4, 1fr); }
+  .steps-5 li { font-size: 12px; }
   .size-grid { grid-template-columns: 1fr 1fr 2fr; }
   .size-grid .field-wide { grid-column: auto; }
   .booker { padding: 26px; }

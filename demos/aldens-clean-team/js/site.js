@@ -13,7 +13,7 @@
         "<p>" + esc(s.description) + "</p>" +
         (s.oneTimeOnly ? '<p class="sc-tag">One-time clean</p>' : "") +
         '<div class="sc-foot"><p class="sc-price">' + esc(C.quote.priceLine) + "</p>" +
-        '<a class="btn btn-primary btn-sm" href="#quote" data-quote-service="' + esc(s.id) + '">Get a quote</a></div></li>';
+        '<a class="btn btn-primary btn-sm" href="#quote" data-quote-service="' + esc(s.id) + '">Book a visit</a></div></li>';
     }).join("");
   }
 

@@ -1,10 +1,10 @@
 /* =====================================================================
    ALDEN'S CLEAN TEAM - SITE SETTINGS (EDIT HERE)
    ---------------------------------------------------------------------
-   The one place to change quote wording, services, frequencies, home
-   size options and contact details. The Services section, the quote
-   flow, the confirmation screen and the Contact section all read
-   from here.
+   The one place to change quote visit wording, visit times, services,
+   frequencies, home size options and contact details. The Services
+   section, the booking flow, the confirmation screen and the team
+   view all read from here.
    ===================================================================== */
 
 window.ACT_CONFIG = {
@@ -30,20 +30,43 @@ window.ACT_CONFIG = {
     timezone: "America/Los_Angeles"
   },
 
-  /* ---------- QUOTE WORDING ----------
-     No prices were found anywhere, so the site never shows a price.
-     Change these lines once the team decides how they want to word it. */
+  /* ---------- QUOTE VISIT WORDING ----------
+     Prices are given in person at a free quote visit, so the site
+     never shows a price. Change these lines to change the wording. */
   quote: {
-    priceLine: "Call or message for a free quote",
-    stepNote: "The team will confirm the price when they call.",
-    confirmTitle: "Request received!",
-    confirmBody: "Dave, Lyndsay or Leah will call you back with a price and to confirm the day and time.",
-    noPriceYet: "No price is set until the team calls you. No payment is needed.",
+    priceLine: "Free quote visit",
+    stepNote: "The team gives you the price at the visit.",
+    confirmTitle: "Your quote visit is booked!",
+    confirmBody: "Dave, Lyndsay or Leah will come by to see the job and give you a price. They'll call or text to confirm before the visit.",
+    noPriceYet: "No price is set until the visit. No payment is needed.",
     oneTimeOnlyNote: "This kind of clean is one-time only."
   },
 
-  /* How far ahead customers can pick a date, in days. */
-  bookingWindowDays: 90,
+  /* How far ahead customers can book a visit, in days. */
+  bookingWindowDays: 60,
+
+  /* ---------- QUOTE VISIT TIMES (PLACEHOLDER) ----------
+     No business hours were found anywhere. These visit times are a
+     placeholder until the team says when they can do quote visits.
+     0 = Sunday ... 6 = Saturday. 24-hour "HH:MM". null = no visits. */
+  visit: {
+    minutes: 30,          // how long a quote visit takes
+    slotStepMinutes: 30,  // a new start time every N minutes
+    minLeadMinutes: 120,  // earliest same-day visit: this many minutes from now
+    perSlot: 1,           // visits the team can do at the same time
+    hours: {
+      0: null,                              // Sunday
+      1: { open: "09:00", close: "17:00" }, // Monday
+      2: { open: "09:00", close: "17:00" }, // Tuesday
+      3: { open: "09:00", close: "17:00" }, // Wednesday
+      4: { open: "09:00", close: "17:00" }, // Thursday
+      5: { open: "09:00", close: "17:00" }, // Friday
+      6: { open: "09:00", close: "17:00" }  // Saturday
+    }
+  },
+
+  /* Who can be assigned a quote visit in the team view (from the brief). */
+  team: ["Dave", "Lyndsay", "Leah"],
 
   /* ---------- Frequencies ---------- */
   frequencies: [

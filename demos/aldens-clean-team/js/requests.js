@@ -1,74 +1,92 @@
-/* Team view: quote requests newest first, mark contacted, cancel.
+/* Team view: quote visits, soonest first. Assign who goes, mark visited, cancel.
    Reads and writes only through ACT.store. */
 (function () {
   "use strict";
-  var core = window.ACT.core, store = window.ACT.store, esc = core.escapeHTML;
+  var C = window.ACT_CONFIG, core = window.ACT.core, store = window.ACT.store, esc = core.escapeHTML;
   var listEl = document.getElementById("request-list");
   if (!listEl) return;
-  var filter = "open", pendingCancel = null;
+  var filter = "upcoming", pendingCancel = null;
 
   function stamp(iso) {
     return new Date(iso).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
   }
-  function home(r) { return window.ACT.homeLabel ? window.ACT.homeLabel(r) : ""; }
+  function home(v) { return window.ACT.homeLabel ? window.ACT.homeLabel(v) : ""; }
+  function isPast(v) {
+    var n = core.now();
+    return v.date < n.date || (v.date === n.date && core.toMinutes(v.time) + v.visitMinutes <= n.minutes);
+  }
+  function bucket(v) { return v.status === "booked" ? "upcoming" : v.status; }
 
-  function card(r) {
-    var tel = "+1" + core.phoneDigits(r.phone), actions, badge;
-    if (r.status === "cancelled") {
+  function card(v) {
+    var tel = "+1" + core.phoneDigits(v.phone), actions, badge;
+    if (v.status === "cancelled") {
       badge = '<span class="badge badge-cancel">Cancelled</span>';
-      actions = '<p class="rq-note">Cancelled ' + esc(stamp(r.cancelledAt)) + "</p>";
+      actions = '<p class="rq-note">Cancelled ' + esc(stamp(v.cancelledAt)) + "</p>";
+    } else if (v.status === "visited") {
+      badge = '<span class="badge badge-done">Visited' + (v.assignedTo ? " by " + esc(v.assignedTo) : "") + "</span>";
+      actions = '<a class="btn btn-call btn-sm" href="tel:' + esc(tel) + '">Call</a>' +
+        '<a class="btn btn-ghost btn-sm" href="sms:' + esc(tel) + '">Text</a>';
     } else {
-      badge = r.status === "contacted"
-        ? '<span class="badge badge-done">Contacted</span>'
-        : '<span class="badge badge-new">New: call back with a price</span>';
-      if (pendingCancel === r.ref) {
-        actions = '<div class="rq-confirm"><span>Cancel this request?</span>' +
-          '<button type="button" class="btn btn-danger btn-sm" data-cancel-yes="' + esc(r.ref) + '">Yes, cancel</button>' +
+      badge = isPast(v) ? '<span class="badge badge-late">Visit time passed: mark visited?</span>'
+        : v.assignedTo ? '<span class="badge badge-assigned">' + esc(v.assignedTo) + " is going</span>"
+        : '<span class="badge badge-new">New: assign someone</span>';
+      if (pendingCancel === v.ref) {
+        actions = '<div class="rq-confirm"><span>Cancel this visit?</span>' +
+          '<button type="button" class="btn btn-danger btn-sm" data-cancel-yes="' + esc(v.ref) + '">Yes, cancel</button>' +
           '<button type="button" class="btn btn-ghost btn-sm" data-cancel-no>Keep it</button></div>';
       } else {
-        actions = '<a class="btn btn-call btn-sm" href="tel:' + esc(tel) + '">Call</a>' +
+        actions = '<label class="assign"><span>Who\'s going</span><select data-assign="' + esc(v.ref) + '">' +
+            '<option value="">Not assigned</option>' +
+            C.team.map(function (p) { return '<option' + (p === v.assignedTo ? " selected" : "") + ">" + esc(p) + "</option>"; }).join("") +
+          "</select></label>" +
+          '<a class="btn btn-call btn-sm" href="tel:' + esc(tel) + '">Call</a>' +
           '<a class="btn btn-ghost btn-sm" href="sms:' + esc(tel) + '">Text</a>' +
-          (r.status === "new" ? '<button type="button" class="btn btn-green btn-sm" data-contacted="' + esc(r.ref) + '">Mark contacted</button>' : "") +
-          '<button type="button" class="btn btn-ghost btn-sm btn-cancel" data-cancel="' + esc(r.ref) + '">Cancel</button>';
+          '<button type="button" class="btn btn-green btn-sm" data-visited="' + esc(v.ref) + '">Mark visited</button>' +
+          '<button type="button" class="btn btn-ghost btn-sm btn-cancel" data-cancel="' + esc(v.ref) + '">Cancel</button>';
       }
     }
-    return '<article class="rq-card is-' + esc(r.status) + '" data-ref="' + esc(r.ref) + '">' +
-      '<div class="rq-head"><span class="rq-service">' + esc(r.serviceName) + "</span>" +
-        '<span class="rq-freq">' + esc(r.frequencyLabel) + "</span>" + badge + "</div>" +
+    return '<article class="rq-card is-' + esc(v.status) + '" data-ref="' + esc(v.ref) + '">' +
+      '<div class="rq-when"><span class="rq-date">' + esc(core.formatDateLong(v.date)) + "</span>" +
+        '<span class="rq-time">' + esc(core.formatTime(v.time)) + "</span>" + badge + "</div>" +
+      '<p class="rq-address"><a href="' + esc(core.mapsLink(v.street, v.city)) + '" target="_blank" rel="noopener">' +
+        esc(v.street + ", " + v.city) + "</a> <span>Map</span></p>" +
       '<dl class="rq-grid">' +
-        "<div><dt>Preferred date</dt><dd>" + esc(core.formatDateLong(r.date)) + "</dd></div>" +
-        "<div><dt>Customer</dt><dd>" + esc(r.name) + "</dd></div>" +
-        '<div><dt>Phone</dt><dd><a href="tel:' + esc(tel) + '">' + esc(r.phone) + "</a></dd></div>" +
-        "<div><dt>About the place</dt><dd>" + esc(home(r)) + "</dd></div>" +
-        (r.email ? '<div><dt>Email</dt><dd><a href="mailto:' + esc(r.email) + '">' + esc(r.email) + "</a></dd></div>" : "") +
-        (r.notes ? '<div class="rq-wide"><dt>Notes</dt><dd>' + esc(r.notes) + "</dd></div>" : "") +
+        "<div><dt>Service</dt><dd>" + esc(v.serviceName) + " &middot; " + esc(v.frequencyLabel) + "</dd></div>" +
+        "<div><dt>Customer</dt><dd>" + esc(v.name) + "</dd></div>" +
+        '<div><dt>Phone</dt><dd><a href="tel:' + esc(tel) + '">' + esc(v.phone) + "</a></dd></div>" +
+        "<div><dt>About the place</dt><dd>" + esc(home(v)) + "</dd></div>" +
+        (v.email ? '<div><dt>Email</dt><dd><a href="mailto:' + esc(v.email) + '">' + esc(v.email) + "</a></dd></div>" : "") +
+        (v.notes ? '<div class="rq-wide"><dt>Notes</dt><dd>' + esc(v.notes) + "</dd></div>" : "") +
       "</dl>" +
-      '<p class="rq-meta">Ref <b>' + esc(r.ref) + "</b> &middot; sent " + esc(stamp(r.createdAt)) +
-        (r.contactedAt && r.status !== "cancelled" ? " &middot; contacted " + esc(stamp(r.contactedAt)) : "") + "</p>" +
+      '<p class="rq-meta">Ref <b>' + esc(v.ref) + "</b> &middot; booked " + esc(stamp(v.createdAt)) +
+        (v.visitedAt ? " &middot; visited " + esc(stamp(v.visitedAt)) : "") + "</p>" +
       '<div class="rq-actions">' + actions + "</div></article>";
   }
 
   function render() {
     store.list().then(function (all) {
-      var counts = { all: all.length, open: 0, cancelled: 0 };
-      all.forEach(function (r) { counts[r.status === "cancelled" ? "cancelled" : "open"]++; });
+      var counts = { all: all.length, upcoming: 0, visited: 0, cancelled: 0 };
+      all.forEach(function (v) { counts[bucket(v)]++; });
       Object.keys(counts).forEach(function (k) {
         var el = document.querySelector('[data-count="' + k + '"]');
         if (el) el.textContent = "(" + counts[k] + ")";
       });
-      var shown = all.filter(function (r) {
-        return filter === "all" || (filter === "cancelled" ? r.status === "cancelled" : r.status !== "cancelled");
-      });
+      var shown = all.filter(function (v) { return filter === "all" || bucket(v) === filter; });
+      if (filter !== "upcoming") shown.reverse(); // most recent first for history tabs
       listEl.innerHTML = shown.length ? shown.map(card).join("")
-        : '<div class="empty"><p>No ' + (filter === "all" ? "" : filter + " ") + "requests right now.</p>" +
-          '<a class="btn btn-primary" href="#quote">Make a test request</a></div>';
+        : '<div class="empty"><p>No ' + (filter === "all" ? "" : filter + " ") + "visits right now.</p>" +
+          '<a class="btn btn-primary" href="#quote">Book a test visit</a></div>';
     });
   }
 
+  listEl.addEventListener("change", function (e) {
+    var sel = e.target.closest("[data-assign]");
+    if (sel) store.assign(sel.getAttribute("data-assign"), sel.value).then(render);
+  });
   listEl.addEventListener("click", function (e) {
     var t = e.target.closest("button");
     if (!t) return;
-    if (t.hasAttribute("data-contacted")) { t.disabled = true; store.markContacted(t.getAttribute("data-contacted")).then(render); }
+    if (t.hasAttribute("data-visited")) { t.disabled = true; store.markVisited(t.getAttribute("data-visited")).then(render); }
     else if (t.hasAttribute("data-cancel")) { pendingCancel = t.getAttribute("data-cancel"); render(); }
     else if (t.hasAttribute("data-cancel-no")) { pendingCancel = null; render(); }
     else if (t.hasAttribute("data-cancel-yes")) {
