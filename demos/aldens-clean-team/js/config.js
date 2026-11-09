@@ -1,10 +1,10 @@
 /* =====================================================================
    ALDEN'S CLEAN TEAM - SITE SETTINGS (EDIT HERE)
    ---------------------------------------------------------------------
-   The one place to change quote visit wording, visit times, services,
-   frequencies, home size options and contact details. The Services
-   section, the booking flow, the confirmation screen and the team
-   view all read from here.
+   The one place to change the Google Sheet link, quote request
+   wording, services, frequencies, home size options and contact
+   details. The Services section, the request form and the
+   confirmation screen all read from here.
    ===================================================================== */
 
 window.ACT_CONFIG = {
@@ -30,43 +30,33 @@ window.ACT_CONFIG = {
     timezone: "America/Los_Angeles"
   },
 
-  /* ---------- QUOTE VISIT WORDING ----------
+  /* ---------- GOOGLE SHEET ----------
+     Paste the Web app URL from the Apps Script deployment here
+     (see google-sheet/SETUP.md). Every quote request is added as a
+     new row in the sheet. Leave it empty for demo mode: the form
+     works, but nothing is sent anywhere. */
+  sheet: {
+    url: ""
+  },
+
+  /* ---------- QUOTE REQUEST WORDING ----------
      Prices are given in person at a free quote visit, so the site
      never shows a price. Change these lines to change the wording. */
   quote: {
     priceLine: "Free quote visit",
-    stepNote: "The team gives you the price at the visit.",
-    confirmTitle: "Your quote visit is booked!",
-    confirmBody: "Dave, Lyndsay or Leah will come by to see the job and give you a price. They'll call or text to confirm before the visit.",
-    noPriceYet: "No price is set until the visit. No payment is needed.",
-    oneTimeOnlyNote: "This kind of clean is one-time only."
+    stepNote: "The team gives you the price when they come see the job.",
+    confirmTitle: "Request sent!",
+    confirmBody: "Dave, Lyndsay or Leah will call or text you to set up a time to come see the job and give you a price.",
+    noPriceYet: "No price is set until the team sees the job. No payment is needed.",
+    oneTimeOnlyNote: "This kind of clean is one-time only.",
+    demoNote: "Demo mode: this request was not sent anywhere. Once the Google Sheet is connected, requests land there."
   },
 
-  /* How far ahead customers can book a visit, in days. */
+  /* How far ahead customers can pick a preferred day, in days. */
   bookingWindowDays: 60,
 
-  /* ---------- QUOTE VISIT TIMES (PLACEHOLDER) ----------
-     No business hours were found anywhere. These visit times are a
-     placeholder until the team says when they can do quote visits.
-     0 = Sunday ... 6 = Saturday. 24-hour "HH:MM". null = no visits. */
-  visit: {
-    minutes: 30,          // how long a quote visit takes
-    slotStepMinutes: 30,  // a new start time every N minutes
-    minLeadMinutes: 120,  // earliest same-day visit: this many minutes from now
-    perSlot: 1,           // visits the team can do at the same time
-    hours: {
-      0: null,                              // Sunday
-      1: { open: "09:00", close: "17:00" }, // Monday
-      2: { open: "09:00", close: "17:00" }, // Tuesday
-      3: { open: "09:00", close: "17:00" }, // Wednesday
-      4: { open: "09:00", close: "17:00" }, // Thursday
-      5: { open: "09:00", close: "17:00" }, // Friday
-      6: { open: "09:00", close: "17:00" }  // Saturday
-    }
-  },
-
-  /* Who can be assigned a quote visit in the team view (from the brief). */
-  team: ["Dave", "Lyndsay", "Leah"],
+  /* Preferred time of day for the quote visit. */
+  timesOfDay: ["Morning", "Afternoon", "Evening", "Any time"],
 
   /* ---------- Frequencies ---------- */
   frequencies: [

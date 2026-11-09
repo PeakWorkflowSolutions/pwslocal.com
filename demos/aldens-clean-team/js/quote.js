@@ -1,5 +1,5 @@
-/* Quote visit booking: service -> how often -> the place -> visit time -> details -> confirmation.
-   Talks to storage only through ACT.store (see request-store.js). */
+/* Quote visit request: service -> how often -> the place -> when -> details -> confirmation.
+   Sends through ACT.store (see request-store.js), which posts to the Google Sheet. */
 (function () {
   "use strict";
   var C = window.ACT_CONFIG, core = window.ACT.core, store = window.ACT.store, esc = core.escapeHTML;
@@ -10,11 +10,11 @@
   function qa(sel) { return Array.prototype.slice.call(booker.querySelectorAll(sel)); }
 
   var LAST = 5;
-  var STEP_FIELDS = { 1: ["serviceId"], 2: ["frequency"], 3: ["street", "city", "bedrooms", "bathrooms", "squareFeet"], 4: ["date", "time"], 5: ["name", "phone", "email"] };
+  var STEP_FIELDS = { 1: ["serviceId"], 2: ["frequency"], 3: ["street", "city", "bedrooms", "bathrooms", "squareFeet"], 4: ["date", "timeOfDay"], 5: ["name", "phone", "email"] };
   var FIELD_STEP = {};
   Object.keys(STEP_FIELDS).forEach(function (s) { STEP_FIELDS[s].forEach(function (f) { FIELD_STEP[f] = +s; }); });
   var state;
-  function freshState() { return { step: 1, serviceId: "", frequency: "", date: "", time: "" }; }
+  function freshState() { return { step: 1, serviceId: "", frequency: "", date: "", timeOfDay: "" }; }
   state = freshState();
 
   /* Step 1: services */
@@ -32,8 +32,6 @@
   }
   fill("bedrooms", C.bedrooms); fill("bathrooms", C.bathrooms); fill("squareFeet", C.squareFeet);
   q('[data-act="size-note"]').textContent = "Helps the team plan the visit. " + C.quote.stepNote;
-  q('[data-act="visit-help"]').textContent = "A quote visit takes about " + C.visit.minutes +
-    " minutes. Pick a day, then a start time. Greyed-out times are already booked.";
 
   function service() { return core.serviceById(state.serviceId); }
 
@@ -57,45 +55,26 @@
     qa('[data-act="rooms-field"]').forEach(function (el) { el.hidden = !rooms; });
   }
 
-  /* Step 4: dates and visit times */
+  /* Step 4: preferred day and time of day */
   var dateInput = document.getElementById("q-date");
   function setupDates() {
     dateInput.min = core.firstDate();
     dateInput.max = core.lastDate();
-    var chips = [], d = core.firstDate();
-    for (var i = 0; chips.length < 7 && i < 21; i++, d = core.addDays(d, 1)) {
-      if (!core.slotsFor(d).length) continue;
-      var label = i === 0 ? "Today" : i === 1 ? "Tomorrow" : core.formatDateShort(d).slice(0, 3);
+    var chips = [], d = core.addDays(core.firstDate(), 1);
+    for (var i = 1; i <= 7; i++, d = core.addDays(d, 1)) {
+      var label = i === 1 ? "Tomorrow" : core.formatDateShort(d).slice(0, 3);
       chips.push('<button type="button" class="chip" data-date="' + d + '"><b>' + label + "</b><span>" +
         esc(core.formatDateShort(d).slice(4)) + "</span></button>");
     }
     q('[data-act="day-chips"]').innerHTML = chips.join("");
-    renderSlots();
+    markChips();
+    q('[data-act="tod-choices"]').innerHTML = C.timesOfDay.map(function (t) {
+      return '<label class="choice"><input type="radio" name="timeOfDay" value="' + esc(t) + '"' + (t === state.timeOfDay ? " checked" : "") + ">" +
+        '<span class="choice-body"><span class="choice-name">' + esc(t) + "</span></span></label>";
+    }).join("");
   }
-  var slotRender = 0;
-  function renderSlots() {
+  function markChips() {
     qa(".chip").forEach(function (c) { c.classList.toggle("is-selected", c.getAttribute("data-date") === state.date); });
-    var box = q('[data-act="slots"]'), note = q('[data-act="day-note"]');
-    if (!state.date || !core.isValidISODate(state.date)) { box.innerHTML = ""; note.textContent = state.date ? "" : "Pick a day to see open times."; return; }
-    var slots = core.slotsFor(state.date);
-    if (!core.visitHoursFor(state.date)) { box.innerHTML = ""; note.textContent = ""; state.time = ""; return; }
-    var mine = ++slotRender;
-    store.takenSlots(state.date).then(function (taken) {
-      if (mine !== slotRender) return;
-      if (slots.indexOf(state.time) === -1 || taken.indexOf(state.time) !== -1) state.time = "";
-      var open = slots.filter(function (t) { return taken.indexOf(t) === -1; });
-      note.textContent = core.formatDateLong(state.date) + (open.length ? ": " + open.length + " open time" + (open.length === 1 ? "" : "s") : "");
-      if (!open.length) {
-        box.innerHTML = '<p class="no-slots">No open times left that day. Please pick another day, or call Dave at (509) 952-9488.</p>';
-        return;
-      }
-      box.innerHTML = slots.map(function (t) {
-        var full = taken.indexOf(t) !== -1;
-        return '<label class="slot' + (full ? " is-taken" : "") + '"><input type="radio" name="time" value="' + t + '"' +
-          (t === state.time ? " checked" : "") + (full ? " disabled" : "") + "><span>" + core.formatTime(t) +
-          (full ? "<small>Booked</small>" : "") + "</span></label>";
-      }).join("");
-    });
   }
 
   /* Errors on the page, never alerts */
@@ -112,7 +91,7 @@
   function collect() {
     var svc = service();
     return {
-      serviceId: state.serviceId, frequency: state.frequency, date: state.date, time: state.time,
+      serviceId: state.serviceId, frequency: state.frequency, date: state.date, timeOfDay: state.timeOfDay,
       street: form.elements.street.value, city: form.elements.city.value,
       bedrooms: svc && svc.askRooms ? form.elements.bedrooms.value : "",
       bathrooms: svc && svc.askRooms ? form.elements.bathrooms.value : "",
@@ -158,7 +137,7 @@
   function renderSummary() {
     var r = collect(), svc = service(), f = core.frequencyById(state.frequency);
     q('[data-act="summary"]').innerHTML =
-      "<p><b>Quote visit: " + esc(core.formatDateLong(state.date)) + " at " + esc(core.formatTime(state.time)) + "</b></p>" +
+      "<p><b>Preferred: " + esc(core.formatDateLong(state.date)) + ", " + esc(state.timeOfDay.toLowerCase()) + "</b></p>" +
       "<p>" + esc(r.street.trim() + ", " + r.city.trim()) + "</p>" +
       "<p>" + esc(svc.name) + " &middot; " + esc(f.label) + " &middot; " + esc(homeLabel(r)) + "</p>" +
       '<p class="summary-note">' + esc(C.quote.stepNote) + "</p>";
@@ -182,21 +161,20 @@
     var t = e.target;
     if (t.name === "serviceId") { state.serviceId = t.value; clearError("serviceId"); }
     if (t.name === "frequency") { state.frequency = t.value; clearError("frequency"); }
-    if (t.name === "time") { state.time = t.value; clearError("time"); }
+    if (t.name === "timeOfDay") { state.timeOfDay = t.value; clearError("timeOfDay"); }
   });
   dateInput.addEventListener("input", function () {
     state.date = dateInput.value;
     var errs = stepErrors(4);
     showErrors({ date: errs.date }, ["date"]);
-    clearError("time");
-    renderSlots();
+    markChips();
   });
   q('[data-act="day-chips"]').addEventListener("click", function (e) {
     var chip = e.target.closest(".chip");
     if (!chip) return;
     state.date = dateInput.value = chip.getAttribute("data-date");
-    clearError("date"); clearError("time");
-    renderSlots();
+    clearError("date");
+    markChips();
   });
   ["street", "city", "name", "phone", "email"].forEach(function (f) {
     form.elements[f].addEventListener("input", function () { clearError(f); });
@@ -205,7 +183,6 @@
     var v = form.elements.phone.value;
     if (core.phoneDigits(v).length === 10) form.elements.phone.value = core.formatPhone(v);
   });
-  store.onChange(function () { if (state.step === 4) renderSlots(); });
 
   var formErr = q('[data-act="form-error"]');
   form.addEventListener("submit", function (e) {
@@ -219,7 +196,7 @@
         if (step !== LAST) goTo(step, true);
         showErrors(err.errors);
       } else {
-        formErr.textContent = "Sorry, something went wrong booking your visit. Please call Dave at (509) 952-9488.";
+        formErr.textContent = "Sorry, your request didn't go through. Please try again, or call Dave at (509) 952-9488.";
         formErr.hidden = false;
       }
     }).then(function () { btn.disabled = false; });
@@ -229,15 +206,18 @@
     function set(k, v) { q('[data-act="' + k + '"]').textContent = v; }
     set("c-title", C.quote.confirmTitle);
     set("c-ref", r.ref);
-    set("c-when", core.formatDateLong(r.date) + " at " + core.formatTime(r.time));
+    set("c-when", r.preferredDateLabel + ", " + r.timeOfDay.toLowerCase());
     set("c-address", r.street + ", " + r.city);
-    set("c-service", r.serviceName);
-    set("c-freq", r.frequencyLabel);
-    set("c-home", homeLabel(r));
+    set("c-service", r.service);
+    set("c-freq", r.frequency);
+    set("c-home", homeLabel({ bedrooms: r.bedrooms, bathrooms: r.bathrooms, squareFeet: r.size }));
     set("c-name", r.name);
     set("c-phone", r.phone);
     set("c-body", C.quote.confirmBody);
     set("c-noprice", C.quote.noPriceYet);
+    var demo = q('[data-act="c-demo"]');
+    demo.textContent = C.quote.demoNote;
+    demo.hidden = !r.demo;
     form.hidden = true;
     q(".steps").hidden = true;
     var box = q('[data-act="confirm"]');
@@ -256,7 +236,7 @@
   }
   q('[data-act="another"]').addEventListener("click", function () { reset(); goTo(1, true); });
 
-  /* "Book a visit" buttons on the service cards */
+  /* "Request a visit" buttons on the service cards */
   document.addEventListener("click", function (e) {
     var link = e.target.closest("[data-quote-service]");
     if (!link) return;
@@ -266,7 +246,6 @@
     var radio = form.querySelector('input[name="serviceId"][value="' + state.serviceId + '"]');
     if (radio) radio.checked = true;
     clearError("serviceId");
-    if (location.hash === "#requests") location.hash = "quote";
     goTo(2, false, true);
     booker.scrollIntoView({ behavior: "smooth", block: "start" });
   });

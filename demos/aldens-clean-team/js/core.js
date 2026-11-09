@@ -1,5 +1,5 @@
-/* Shared helpers: business clock, dates, visit time slots, validation,
-   formatting. Used by the booking flow, the site and the team view.
+/* Shared helpers: business clock, dates, validation, formatting.
+   Used by the request form and the site.
    No storage code here, see request-store.js. */
 (function () {
   "use strict";
@@ -43,23 +43,6 @@
     return (h % 12 === 0 ? 12 : h % 12) + ":" + pad(mm) + " " + (h >= 12 ? "PM" : "AM");
   }
 
-  /* Visit start times for a date: inside visit hours, the whole visit
-     ends by closing, never in the past (plus a lead time for today). */
-  function visitHoursFor(iso) { return C.visit.hours[weekday(iso)] || null; }
-  function slotsFor(iso) {
-    if (!isValidISODate(iso)) return [];
-    var n = now();
-    if (iso < n.date || iso > lastDate()) return [];
-    var h = visitHoursFor(iso);
-    if (!h) return [];
-    var out = [], open = toMinutes(h.open), close = toMinutes(h.close);
-    for (var m = open; m + C.visit.minutes <= close; m += C.visit.slotStepMinutes) {
-      if (iso === n.date && m < n.minutes + C.visit.minLeadMinutes) continue;
-      out.push(fromMinutes(m));
-    }
-    return out;
-  }
-
   function find(list, id) {
     for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
     return null;
@@ -78,9 +61,9 @@
     return d.length === 10 ? "(" + d.slice(0, 3) + ") " + d.slice(3, 6) + "-" + d.slice(6) : String(v || "").trim();
   }
 
-  /* Validates a visit booking. Returns { field: message }. Empty = OK.
-     The store runs this again (plus a check that the slot is still
-     free) before saving, so a real backend can reuse the same rules. */
+  /* Validates a quote request. Returns { field: message }. Empty = OK.
+     The store runs this again before sending, and the Apps Script
+     checks the required fields too. */
   function validateRequest(r) {
     var e = {};
     var svc = serviceById(r.serviceId);
@@ -93,14 +76,11 @@
     if (r.squareFeet && C.squareFeet.indexOf(r.squareFeet) === -1) e.squareFeet = "Please pick from the list.";
     if (!String(r.street || "").trim()) e.street = "Please enter the street address for the visit.";
     if (!String(r.city || "").trim()) e.city = "Please enter the city.";
-    if (!r.date) e.date = "Please pick a day for the visit.";
+    if (!r.date) e.date = "Please pick a preferred day.";
     else if (!isValidISODate(r.date) || r.date < firstDate()) e.date = "Please pick today or a later date.";
     else if (r.date > lastDate()) e.date = "Please pick a date within the next " + C.bookingWindowDays + " days.";
-    else if (!visitHoursFor(r.date)) e.date = "The team doesn't do quote visits that day. Please pick another day.";
-    if (!e.date) {
-      if (!r.time) e.time = "Please pick a time for the visit.";
-      else if (slotsFor(r.date).indexOf(r.time) === -1) e.time = "That time isn't available. Please pick another time.";
-    }
+    if (!r.timeOfDay) e.timeOfDay = "Please pick a time of day.";
+    else if (C.timesOfDay.indexOf(r.timeOfDay) === -1) e.timeOfDay = "Please pick from the list.";
     if (!String(r.name || "").trim()) e.name = "Please enter your name.";
     if (!String(r.phone || "").trim()) e.phone = "Please enter your phone number.";
     else if (phoneDigits(r.phone).length !== 10) e.phone = "Please enter a 10-digit phone number, like (509) 555-0123.";
@@ -123,7 +103,7 @@
   window.ACT.core = {
     now: now, today: today, addDays: addDays, weekday: weekday, isValidISODate: isValidISODate,
     firstDate: firstDate, lastDate: lastDate, formatDateLong: formatDateLong, formatDateShort: formatDateShort,
-    formatTime: formatTime, toMinutes: toMinutes, visitHoursFor: visitHoursFor, slotsFor: slotsFor,
+    formatTime: formatTime, toMinutes: toMinutes,
     serviceById: serviceById, frequencyById: frequencyById, frequenciesFor: frequenciesFor,
     phoneDigits: phoneDigits, formatPhone: formatPhone, validateRequest: validateRequest,
     mapsLink: mapsLink, escapeHTML: escapeHTML

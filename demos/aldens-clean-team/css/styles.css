@@ -228,6 +228,8 @@ h1, h2, h3 { line-height: 1.15; margin: 0 0 .5em; }
 .confirm-details dd { margin: 0; font-weight: 700; }
 .confirm-next { background: var(--teal-soft); border-radius: 12px; padding: 12px 14px; }
 .confirm-call { font-size: 15px; color: var(--muted); }
+.confirm-demo { background: #FFF6DB; border: 1px dashed #C9A227; color: #6B5300; border-radius: 10px; padding: 10px 12px; font-size: 14px; }
+.tod-label { margin: 16px 0 8px; }
 
 /* ---------- Contact ---------- */
 .contact-grid { display: grid; gap: 28px; }

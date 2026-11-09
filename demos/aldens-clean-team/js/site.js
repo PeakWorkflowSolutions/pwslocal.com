@@ -1,4 +1,4 @@
-/* Page rendering: services, team-view router, photo lightbox. */
+/* Page rendering: services, photo lightbox. */
 (function () {
   "use strict";
   var C = window.ACT_CONFIG, esc = window.ACT.core.escapeHTML;
@@ -13,23 +13,9 @@
         "<p>" + esc(s.description) + "</p>" +
         (s.oneTimeOnly ? '<p class="sc-tag">One-time clean</p>' : "") +
         '<div class="sc-foot"><p class="sc-price">' + esc(C.quote.priceLine) + "</p>" +
-        '<a class="btn btn-primary btn-sm" href="#quote" data-quote-service="' + esc(s.id) + '">Book a visit</a></div></li>';
+        '<a class="btn btn-primary btn-sm" href="#quote" data-quote-service="' + esc(s.id) + '">Request a visit</a></div></li>';
     }).join("");
   }
-
-  /* Team view router: #requests shows the request list, anything else the site */
-  function route() {
-    var team = location.hash === "#requests";
-    var was = document.body.classList.contains("is-team");
-    document.body.classList.toggle("is-team", team);
-    if (team && !was) window.scrollTo(0, 0);
-    if (!team && was) {
-      var target = location.hash && document.querySelector(location.hash);
-      if (target) target.scrollIntoView(); else window.scrollTo(0, 0);
-    }
-  }
-  window.addEventListener("hashchange", route);
-  route();
 
   /* Lightbox */
   var lb = document.getElementById("lightbox");
