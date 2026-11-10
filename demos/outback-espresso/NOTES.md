@@ -20,6 +20,18 @@ Everything on the site comes from **their own website, outbackespresso.com**, re
 - **Customer quotes:** six of the ten testimonials on their homepage, word for word, with each person's favorite drink and years as a customer.
 - **Photos:** their logo (black and white versions), both buildings, and 14 of their own drink photos.
 
+**Added from Marcos's full scrape (Nov 10, 2026):**
+- Instagram @outback.espresso, and the Facebook pages for Ahtanum and Outback North.
+- Ratings: 4.6 on Google (103 reviews) and 4.8 on Facebook (47 reviews).
+- North's own description.
+- Punch cards (from their Instagram) and Giftly gift cards.
+- A food list, without prices, taken from their older posted menus.
+
+**Kept from their own website where the scrape differs:**
+- **Drink prices:** their site's online-order pages show current prices. The SinglePlatform prices in the scrape are older.
+- **Email:** it is on their Contact page, scrambled by Cloudflare in the page source.
+- **Hours:** see the questions below.
+
 Left out on purpose:
 - The small round drink icons on their current site are **Starbucks product images**.
 - The coffee-bags photo, the "Take Away" badge, the "John Appleseed" signature and the placeholder "History" text are **website template stock**.
@@ -56,12 +68,15 @@ Left out on purpose:
 ## Things to confirm with the owner
 
 1. **Outback North's phone number.** Their North page says (509) 972-9876, which is the same as Ahtanum. The footer and contact page say Wide Hollow is (509) 966-7472. The site uses 966-7472. Which is right?
-2. **Food.** Their site lists no food items or prices. Reviews elsewhere mention breakfast burritos, sandwiches and muffins, and one photo shows glazed donut holes. Do they want a food list with prices?
+2. **Hours conflict.** Their website says Ahtanum is open Mon-Fri 5:30 AM-4:30 PM, Sat 7-4:30, Sun 7-4. Google, Facebook and Yelp all say Mon/Wed-Fri 5:30-4:00, **Tue 7:30 AM-7:00 PM**, Sat-Sun 7-4. The site uses their website's hours. Which is right, and is there a Tuesday late night? (North matches everywhere.)
+3. **Food.** The site lists the food items from their older posted menus, without prices. Which items are current, at which location, and do they want prices shown?
+3a. **Founding year.** 1999 on their own site, "since 2008" on Cylex. The site says 1999.
 3. **Flavors.** The menu headings mention flavored and blended Red Bull/Lotus and Spark, with no separate prices. What are the flavor lists and the blended prices?
-4. **Facebook and Instagram.** The icons on their current site don't link anywhere. What are their real page URLs?
+4. **Facebook and Instagram.** Linked from the scrape: @outback.espresso and the two Facebook pages. Confirm these are the ones they want linked.
 5. **Online ordering.** Their current site has a "Place Order" shop. Do they use it? Should the new site link to it?
 6. **Careers page.** Their site has a Job Board page. Do they want hiring info on the new site?
-7. **Prices.** These were taken from their site on Nov 10, 2026. Are they current, and before tax?
+7. **Prices.** These were taken from their site on Nov 10, 2026. Are they current, before tax, and the same at both locations? (Older menus showed North a little higher.)
+8. **Owner name.** One review names an owner. It is not used anywhere on the site, and shouldn't be until they confirm.
 
 Remove `<meta name="robots" content="noindex">` and the "Demo site by Peak Workflow Solutions" line when it goes live.
 

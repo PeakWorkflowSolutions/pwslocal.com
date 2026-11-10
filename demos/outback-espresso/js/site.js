@@ -72,6 +72,10 @@
     });
   }
 
+  /* Food list */
+  var food = document.querySelector('[data-oe="food"]');
+  if (food && OE.food) food.innerHTML = OE.food.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("");
+
   /* Location cards */
   var locs = document.querySelector('[data-oe="locations"]');
   if (locs) {
@@ -86,6 +90,7 @@
         '<img loading="lazy" src="' + esc(l.photo) + '" width="800" height="600" alt="The ' + esc(l.name) + ' drive-thru">' +
         '<div class="loc-body"><p class="loc-alt">' + esc(l.alt) + "</p><h3>" + esc(l.name) + "</h3>" +
         '<p class="loc-status' + (s.open ? " is-open" : "") + '">' + esc(s.text) + "</p>" +
+        (l.blurb ? '<p class="loc-blurb">"' + esc(l.blurb) + '"</p>' : "") +
         "<p>" + esc(l.address) + "</p>" +
         '<div class="loc-btns"><a class="btn btn-dark" href="tel:' + esc(l.phoneTel) + '">Call ' + esc(l.phoneDisplay) + "</a>" +
         '<a class="btn btn-line" href="' + esc(l.mapsUrl) + '" target="_blank" rel="noopener">Directions</a></div>' +

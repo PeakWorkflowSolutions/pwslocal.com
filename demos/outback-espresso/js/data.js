@@ -8,6 +8,18 @@
 window.OE = {
   timezone: "America/Los_Angeles",
 
+  social: {
+    instagram: "https://www.instagram.com/outback.espresso",
+    facebookMain: "https://www.facebook.com/outbackespresso",
+    facebookNorth: "https://www.facebook.com/outbacknorthespresso/",
+    giftCards: "https://www.giftly.com/gift-card/outback-espresso-yakima"
+  },
+
+  /* Food items from their posted menus (no prices: availability and
+     prices vary by location, confirm with the owner before adding). */
+  food: ["Breakfast burritos", "Breakfast sandwiches", "Bagels & cream cheese", "Muffins", "Cream cheese muffins",
+         "Breakfast cookies", "Sugar cookies", "Donuts", "Cinnamon rolls (seasonal)", "Oatmeal", "Tamales"],
+
   locations: [
     {
       id: "ahtanum",
@@ -26,6 +38,7 @@ window.OE = {
       id: "north",
       name: "Wide Hollow",
       alt: "Outback North",
+      blurb: "Our delicious variety of unique drinks and breakfast items are a staple to the West Valley community",
       address: "1212 S 80th Ave, Yakima, WA 98908",
       phoneDisplay: "(509) 966-7472",
       phoneTel: "+15099667472",
