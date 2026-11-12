@@ -1,6 +1,6 @@
 # 24/7 Selah Fitness: website demo
 
-Built Nov 12, 2026 from Marcos's full scrape (Facebook, Instagram, Google Places, Yelp). **Cold prospect:** no call made, no demo promised. Show it as files or screenshots. Don't publish a public link until they say yes.
+Built Nov 12, 2026 from Marcos's full scrape (Facebook, Instagram, Google Places, Yelp). The gym is on board and waiting for the demo (per Marcos, Nov 12, 2026). Published as an artifact.
 
 ## How to open it
 
