@@ -51,8 +51,12 @@ h1, h2, h3 { margin: 0; line-height: 1.05; }
     var(--night);
   color: var(--silver); text-align: center; padding: 54px 0 60px; }
 .sign { display: grid; justify-items: center; margin: 0 auto 26px; position: relative; }
-.sign-num { font: 400 clamp(110px, 34vw, 220px)/.9 var(--block); color: var(--gold); letter-spacing: .01em; text-shadow: 0 6px 30px rgba(242,194,48,.18); }
-.sign-pulse { display: block; width: min(560px, 92vw); height: 70px; margin: -46px auto 0; background: url("../img/pulse.svg") center / 100% 100% no-repeat; filter: drop-shadow(0 0 6px rgba(224,58,62,.6)); }
+.sign-num { position: relative; display: inline-flex; align-items: center; font: 400 clamp(110px, 34vw, 220px)/.9 var(--block); color: var(--gold); letter-spacing: .01em; text-shadow: 0 6px 30px rgba(242,194,48,.18); }
+/* The heartbeat: a red line through the numbers that spikes where the slash goes, between the 24 and the 7 */
+.sign-num::before { content: ""; position: absolute; left: -14%; right: -14%; top: 56%; height: 4px; margin-top: -2px; background: var(--red); box-shadow: 0 0 6px rgba(224,58,62,.6); z-index: 1; }
+.sign-slash { position: relative; z-index: 2; display: block; width: .46em; align-self: stretch; margin: 0 .02em; }
+.sign-slash svg { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; overflow: visible; filter: drop-shadow(0 0 6px rgba(224,58,62,.6)); }
+.sign-slash polyline { fill: none; stroke: var(--red); stroke-width: 4; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .sign-name { font: 400 clamp(30px, 9vw, 56px)/1 var(--block); letter-spacing: .14em; text-transform: uppercase; color: var(--silver); margin-top: 6px; }
 .hero-line { font-size: clamp(18px, 4.6vw, 22px); max-width: 30em; margin: 0 auto 6px; color: #fff; }
 .hero-new { margin: 0 0 24px; font: 600 15px var(--head); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
@@ -89,18 +93,9 @@ h1, h2, h3 { margin: 0; line-height: 1.05; }
 .card h3 { font: 400 28px/1.1 var(--block); text-transform: uppercase; margin: 6px 0 8px; }
 .card p { margin: 0; color: var(--steel); }
 
-/* Workout */
-.workout { display: grid; gap: 26px; }
-.text-link { color: var(--gold); font: 600 15px var(--head); letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
-.text-link:hover { text-decoration: underline; }
-.moves { list-style: none; counter-reset: m; margin: 0; padding: 0; display: grid; gap: 8px; }
-.moves li { counter-increment: m; display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: var(--steel); border-left: 4px solid var(--gold); }
-.moves li::before { content: counter(m, decimal-leading-zero); font: 400 22px var(--block); color: var(--gold); min-width: 32px; }
-.moves li span { font: 500 18px var(--head); letter-spacing: .04em; text-transform: uppercase; color: #fff; }
-.moves li.finisher { border-left-color: var(--red); background: #4A2B2D; }
-.moves li.finisher::before { color: var(--red); }
-
 /* Quotes */
+.reviews .quotes li { background: var(--steel); color: #fff; }
+.reviews .who { color: #A9AEB5; }
 .quotes { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 16px; }
 .quotes li { background: var(--paper); padding: 24px 22px 20px; border-top: 5px solid var(--gold); }
 .quotes blockquote { margin: 0 0 12px; font: 500 22px/1.3 var(--head); letter-spacing: .01em; }
@@ -136,13 +131,10 @@ h1, h2, h3 { margin: 0; line-height: 1.05; }
 @media (min-width: 700px) {
   .cards { grid-template-columns: repeat(3, 1fr); }
   .quotes { grid-template-columns: 1fr 1fr; }
-  .moves { grid-template-columns: 1fr 1fr; }
-  .moves li.finisher { grid-column: 1 / -1; }
 }
 @media (min-width: 900px) {
   .nav a { font-size: 14px; padding: 10px 14px; }
   .hero { padding: 80px 0 90px; }
-  .workout { grid-template-columns: .9fr 1.1fr; align-items: start; gap: 48px; }
   .visit { grid-template-columns: 1.2fr .8fr; gap: 48px; }
   .contact-inner { grid-template-columns: 1fr 1fr; column-gap: 56px; align-items: start; }
   .contact-btns { grid-column: 1 / -1; max-width: 640px; }
