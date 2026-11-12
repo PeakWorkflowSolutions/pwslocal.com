@@ -10,7 +10,7 @@ Double-click `index.html`. No server, no install, no build step, and no JavaScri
 
 - **Built from their sign**, the only brand mark they have. The sign has a gold "24/7" with a red heartbeat line running through it, and silver "SELAH FITNESS" block letters on a gray building.
   - Colors: dark gray #1E2023, gold #F2C230, red #E03A3E, silver #D9DCE0.
-  - The hero recreates the sign in type and CSS: a big gold 24/7 with a red heartbeat line running through it that spikes between the 24 and the 7, like their logo, and SELAH FITNESS underneath.
+  - The hero recreates the sign in type and CSS: a big gold 24/7 with a red heartbeat line like their logo: it runs underneath the 24, jumps up between the 24 and the 7, runs underneath the 7, then blips once more after it, and SELAH FITNESS underneath.
 - **The pulse line** is the section divider, like the pine treeline on the Outback site.
 - **Fonts:** Anton (tall block capitals, close to the sign), Oswald for labels, Inter for body text.
 - **Same structure as the Outback site:** sticky header, hero, a quick-facts strip, content sections, reviews, a visit section and contact.
@@ -53,6 +53,6 @@ Double-click `index.html`. No server, no install, no build step, and no JavaScri
 I ran an automated browser test on phone and desktop sizes, all 13 checks passed:
 - No prices, star ratings, owner name, founding year or disputed hours anywhere. No competitor or COVID-fine content.
 - Call, text, email, Instagram, Facebook and directions links all work.
-- Both reviews are word for word, the workout section is gone, and the heartbeat spike sits between the 24 and the 7.
+- Both reviews are word for word, the workout section is gone, and the heartbeat jumps between the 24 and the 7 and blips after the 7.
 - No sideways scrolling on a phone, and no errors.
 - Screenshots checked by eye on phone and desktop.

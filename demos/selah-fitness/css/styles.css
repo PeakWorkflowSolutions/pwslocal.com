@@ -51,13 +51,18 @@ h1, h2, h3 { margin: 0; line-height: 1.05; }
     var(--night);
   color: var(--silver); text-align: center; padding: 54px 0 60px; }
 .sign { display: grid; justify-items: center; margin: 0 auto 26px; position: relative; }
-.sign-num { position: relative; display: inline-flex; align-items: center; font: 400 clamp(110px, 34vw, 220px)/.9 var(--block); color: var(--gold); letter-spacing: .01em; text-shadow: 0 6px 30px rgba(242,194,48,.18); }
-/* The heartbeat: a red line through the numbers that spikes where the slash goes, between the 24 and the 7 */
-.sign-num::before { content: ""; position: absolute; left: -14%; right: -14%; top: 56%; height: 4px; margin-top: -2px; background: var(--red); box-shadow: 0 0 6px rgba(224,58,62,.6); z-index: 1; }
-.sign-slash { position: relative; z-index: 2; display: block; width: .46em; align-self: stretch; margin: 0 .02em; }
-.sign-slash svg { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; overflow: visible; filter: drop-shadow(0 0 6px rgba(224,58,62,.6)); }
-.sign-slash polyline { fill: none; stroke: var(--red); stroke-width: 4; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-.sign-name { font: 400 clamp(30px, 9vw, 56px)/1 var(--block); letter-spacing: .14em; text-transform: uppercase; color: var(--silver); margin-top: 6px; }
+.sign-num { position: relative; display: inline-flex; align-items: stretch; font: 400 clamp(110px, 34vw, 220px)/.9 var(--block); color: var(--gold); letter-spacing: .01em; text-shadow: 0 6px 30px rgba(242,194,48,.18); --beat-y: -0.06em; }
+/* The heartbeat, like their logo: a red line runs underneath the 24, jumps up
+   between the 24 and the 7, drops back down, runs underneath the 7, then
+   blips up and down once more after it. */
+.sign-num > span { position: relative; display: block; }
+.digits::after, .beat-lead::after { content: ""; position: absolute; left: 0; right: 0; bottom: calc(var(--beat-y) - 2px); height: 4px; background: var(--red); box-shadow: 0 0 6px rgba(224,58,62,.6); }
+.beat-lead { width: .22em; }
+.beat-spike { width: .44em; }
+.beat-tail { width: .62em; }
+.beat svg { position: absolute; left: 0; width: 100%; height: 1.15em; bottom: calc(var(--beat-y) - 0.0115em); overflow: visible; filter: drop-shadow(0 0 6px rgba(224,58,62,.6)); }
+.beat polyline { fill: none; stroke: var(--red); stroke-width: 4; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.sign-name { font: 400 clamp(30px, 9vw, 56px)/1 var(--block); letter-spacing: .14em; text-transform: uppercase; color: var(--silver); margin-top: 30px; }
 .hero-line { font-size: clamp(18px, 4.6vw, 22px); max-width: 30em; margin: 0 auto 6px; color: #fff; }
 .hero-new { margin: 0 0 24px; font: 600 15px var(--head); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
