@@ -10,7 +10,11 @@ Double-click `index.html`. No server, no install, no build step, and no JavaScri
 
 - **Built from their sign**, the only brand mark they have. The sign has a gold "24/7" with a red heartbeat line running through it, and silver "SELAH FITNESS" block letters on a gray building.
   - Colors: dark gray #1E2023, gold #F2C230, red #E03A3E, silver #D9DCE0.
-  - The hero recreates the sign in type and CSS: a big gold 24/7 with a red heartbeat line like their logo: it runs underneath the 24, jumps up between the 24 and the 7, runs underneath the 7, then blips once more after it, and SELAH FITNESS underneath.
+  - The hero recreates their logo (24/7 RESULTS TRAINING graphic Marcos sent, Nov 16) in type and CSS:
+    - yellow 24 and 7 with a dark outline
+    - a glowing neon heartbeat line running right under them, with one big up-and-down spike between the 24 and the 7
+    - two slanted yellow banners underneath
+  - The logo's banners say RESULTS and TRAINING. On the site they say SELAH and FITNESS to match the gym name. Swap them back if the owner prefers.
 - **The pulse line** is the section divider, like the pine treeline on the Outback site.
 - **Fonts:** Anton (tall block capitals, close to the sign), Oswald for labels, Inter for body text.
 - **Same structure as the Outback site:** sticky header, hero, a quick-facts strip, content sections, reviews, a visit section and contact.
@@ -23,6 +27,9 @@ Double-click `index.html`. No server, no install, no build step, and no JavaScri
    - Call (509) 698-2829 and Ask about membership buttons
    - the address
 2. **Quick facts:** 24/7 member access · Personal training · Downtown Selah.
+2a. **Equipment** (new, Nov 16): their weights photo (the dumbbell rack Marcos sent), plus tabs to pick a section: Free weights, Benches & racks, Cardio, Machines.
+   - Free weights and benches are described from the photo: rubber hex dumbbells on a full rack, benches and a rubber floor.
+   - Cardio and Machines are only general lines. **Confirm what they actually have** (brands, counts, heaviest dumbbell, squat rack or not) and fill these in.
 3. **The gym:** three cards: gym access, personal training, and everyone's welcome (from their "inclusive" bio).
 
 (The outdoor workout from their Instagram was removed at Marcos's request, Nov 12.)
@@ -36,7 +43,7 @@ Double-click `index.html`. No server, no install, no build step, and no JavaScri
 - **Staffed hours.** The sources conflict: Facebook says "Always open", Yelp says 24 hours, Google says 8 AM-10 PM. The site only says "24/7 member access", which matches the gym's name, Facebook and Yelp. It doesn't list staffed hours.
 - **Founding year, owner name, ratings, classes, trainer names.** Not confirmed, or not found.
 - **Anything about other gyms.** Anytime Fitness, Fully Charged, Selah Grace and Bebe Nails are all left out. The 2020 COVID fine was Anytime Fitness, not this gym.
-- **Photos.** None were available, and no stock photos are used. Their gym floor and equipment photos are the first thing to ask for.
+- **Photos.** The only photo is the dumbbell rack Marcos sent. No stock photos are used. More photos of the floor, the machines and the sign are still the first thing to ask for.
 
 ## To confirm with the business (if they say yes)
 
@@ -50,9 +57,11 @@ Double-click `index.html`. No server, no install, no build step, and no JavaScri
 
 ## Testing done
 
-I ran an automated browser test on phone and desktop sizes, all 13 checks passed:
+I ran an automated browser test on phone and desktop sizes, all 18 checks passed:
 - No prices, star ratings, owner name, founding year or disputed hours anywhere. No competitor or COVID-fine content.
 - Call, text, email, Instagram, Facebook and directions links all work.
-- Both reviews are word for word, the workout section is gone, and the heartbeat jumps between the 24 and the 7 and blips after the 7.
+- Both reviews are word for word and the workout section is gone.
+- The logo has one spike between the 24 and the 7, and the banners read SELAH and FITNESS.
+- The weights photo loads, and the equipment tabs switch sections.
 - No sideways scrolling on a phone, and no errors.
 - Screenshots checked by eye on phone and desktop.

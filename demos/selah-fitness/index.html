@@ -20,6 +20,7 @@
       <a class="mark" href="#home" aria-label="24/7 Selah Fitness, home"><b>24/7</b><span>Selah Fitness</span></a>
       <nav class="nav" aria-label="Main">
         <a href="#gym">The Gym</a>
+        <a href="#equipment">Equipment</a>
         <a href="#visit">Visit</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -31,8 +32,10 @@
     <section id="home" class="hero">
       <div class="wrap hero-inner">
         <h1 class="sign" aria-label="24/7 Selah Fitness">
-          <span class="sign-num" aria-hidden="true"><span class="beat-lead"></span><span class="digits">24</span><span class="beat beat-spike"><svg viewBox="0 0 100 200" preserveAspectRatio="none"><polyline points="0,198 16,198 28,178 44,4 60,214 72,198 100,198"/></svg></span><span class="digits">7</span><span class="beat beat-tail"><svg viewBox="0 0 100 200" preserveAspectRatio="none"><polyline points="0,198 22,198 34,128 48,216 60,198 100,198"/></svg></span></span>
-          <span class="sign-name">Selah Fitness</span>
+          <span class="sign-lockup" aria-hidden="true">
+            <span class="sign-num"><span class="beat-line"></span><span class="digits">24</span><span class="beat beat-spike"><svg viewBox="0 0 100 300" preserveAspectRatio="none"><polyline points="0,200 18,200 26,214 40,6 56,294 68,200 100,200"/></svg></span><span class="digits">7</span><span class="beat-line"></span></span>
+            <span class="sign-banners"><span><i>Selah</i></span><span><i>Fitness</i></span></span>
+          </span>
         </h1>
         <p class="hero-line">Inclusive fitness facility here to help you meet all your fitness goals!</p>
         <p class="hero-new">Now offering personal training!</p>
@@ -75,6 +78,54 @@
             <h3>Everyone's welcome</h3>
             <p>An inclusive gym. First workout or hundredth, you belong here.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EQUIPMENT -->
+    <section id="equipment" class="section section-steel">
+      <div class="wrap equip">
+        <figure class="equip-photo">
+          <img src="img/weights.jpg" width="768" height="960" loading="lazy" alt="A long rack of black rubber hex dumbbells with chrome handles on the gym floor, benches and a red wall behind">
+          <figcaption>The dumbbell rack</figcaption>
+        </figure>
+        <div class="equip-body">
+          <p class="eyebrow">On the floor</p>
+          <h2 class="title">The equipment</h2>
+          <p class="lede">Pick a section to see what's in the gym.</p>
+          <div class="tabs" role="tablist" aria-label="Equipment sections">
+            <button type="button" role="tab" class="tab is-active" aria-selected="true" aria-controls="eq-free" id="tab-free">Free weights</button>
+            <button type="button" role="tab" class="tab" aria-selected="false" aria-controls="eq-bench" id="tab-bench">Benches &amp; racks</button>
+            <button type="button" role="tab" class="tab" aria-selected="false" aria-controls="eq-cardio" id="tab-cardio">Cardio</button>
+            <button type="button" role="tab" class="tab" aria-selected="false" aria-controls="eq-machines" id="tab-machines">Machines</button>
+          </div>
+          <div class="panel" role="tabpanel" id="eq-free" aria-labelledby="tab-free">
+            <h3>Free weights</h3>
+            <ul class="gear">
+              <li><b>Rubber hex dumbbells</b><span>A full rack, racked in pairs from light to heavy</span></li>
+              <li><b>Dumbbell rack</b><span>Everything in one row, easy to grab and put back</span></li>
+            </ul>
+          </div>
+          <div class="panel" role="tabpanel" id="eq-bench" aria-labelledby="tab-bench" hidden>
+            <h3>Benches &amp; racks</h3>
+            <ul class="gear">
+              <li><b>Workout benches</b><span>Set up right next to the dumbbells for presses, rows and step-ups</span></li>
+              <li><b>Rubber floor</b><span>Room to lift, stretch and work out on the floor</span></li>
+            </ul>
+          </div>
+          <div class="panel" role="tabpanel" id="eq-cardio" aria-labelledby="tab-cardio" hidden>
+            <h3>Cardio</h3>
+            <ul class="gear">
+              <li><b>Cardio equipment</b><span>For warm-ups, conditioning and getting your heart rate up</span></li>
+            </ul>
+          </div>
+          <div class="panel" role="tabpanel" id="eq-machines" aria-labelledby="tab-machines" hidden>
+            <h3>Machines</h3>
+            <ul class="gear">
+              <li><b>Strength machines</b><span>Guided strength training for every level</span></li>
+            </ul>
+          </div>
+          <p class="small eq-ask">Looking for something specific? <a href="tel:+15096982829">Call (509) 698-2829</a> and ask.</p>
         </div>
       </div>
     </section>
@@ -144,5 +195,6 @@
       <p class="small">Demo site by Peak Workflow Solutions</p>
     </div>
   </footer>
+  <script src="js/site.js"></script>
 </body>
 </html>
