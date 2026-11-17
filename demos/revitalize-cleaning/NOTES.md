@@ -8,14 +8,17 @@ Double-click `index.html`. No server, no install, no build step.
 
 ## Design
 
-- **Placeholder look until they send a logo.** There is no logo or brand color anywhere online, so I picked colors that fit the name "Revitalize": deep evergreen, fresh mint, warm cream and a gold sparkle.
-- **Fonts:** Fraunces (a warm serif) for headings and Inter for body text.
-- **Motif:** a small four-point sparkle, used as the brand mark, in the hero and on the cards.
-- Once they send their logo or colors, swap the variables at the top of `css/styles.css`.
+Rebranded Nov 17 from the logo screenshot Marcos sent:
+- **Emblem:** buildings and houses under a sparkling dome, with squeegees, cut out of the screenshot. The grid paper behind it was removed, and it's saved with transparency as `img/logo-mark.png`. It's used in the header, the hero and the favicon.
+- **Colors from the logo:** royal blue #1B37A6 (the wordmark), periwinkle #8FA2EE (the dome), pale periwinkle #E3E9FF, and white.
+- **Fonts:** Saira, bold and wide like their wordmark, for headings and "REVITALIZE CLEANING SERVICES LLC". Inter for body text.
+- **Their tagline**, word for word under the name: "Revitalizing your space, one detail at a time".
+- Sparkles, like the ones in their logo's dome.
+- For a sharper emblem, ask for the original logo file. The cut-out came from a screenshot.
 
 ## What's on the page
 
-1. **Hero:** "Revitalize Cleaning Services", "Yakima, WA · Residential & Commercial", "A husband-and-wife team, Mari and Damian Shelton...", and buttons to request a free quote or message them on Facebook.
+1. **Hero:** their emblem, "REVITALIZE CLEANING SERVICES LLC", their tagline, "Residential and commercial cleaning in Yakima, WA, from a husband-and-wife team, Mari and Damian Shelton.", and buttons to request a free quote or message them on Facebook.
 2. **Strip:** Homes · Offices · Move-in & move-out · New construction · Real estate listings.
 3. **Services**, in three groups (all from the scrape):
    - Residential: regular maintenance, deep cleaning, move-in and move-out.
@@ -58,7 +61,7 @@ Until the URL is set, the form works in demo mode and says nothing was sent. The
 4. Services list: is anything missing, like carpets or windows?
 5. Prices, if they ever want them shown.
 6. Licensed, bonded or insured: if so, add it.
-7. Logo, colors and photos: before/after shots, their team, commercial jobs.
+7. The original logo file (for a sharper emblem), plus photos: before/after shots, their team, commercial jobs.
 8. Spelling: Damian, Damion or Damon?
 9. Permission to quote the John L. Scott recommendation and link the reel.
 10. Which Google account the quote-request sheet should live in, and who should get the email notice.
