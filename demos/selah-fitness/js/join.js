@@ -235,91 +235,23 @@
   window.addEventListener("resize", function () { if (step === 3 && !signed) sizePad(); });
 
   /* ============================================================
-     PHONE KEY
+     PHONE KEY: one button that unlocks the door
      ============================================================ */
-  var SAMPLE = { name: "Sample Member", first: "Sample", id: "SF-0000", active: true, sample: true };
-  var member = load(STORE) || SAMPLE;
-  var nameEl = $("[data-key-name]"), statusEl = $("[data-key-status]"), codeEl = $("[data-key-code]"),
-      barEl = $("[data-key-bar]"), timeEl = $("[data-key-time]"), tapBtn = $("[data-key-tap]"),
-      footEl = $("[data-key-foot]"), reader = $("[data-reader]"), msgEl = $("[data-reader-msg]"),
-      toggle = $("[data-key-toggle]"), logEl = $("[data-entry-log]"), hintEl = $("[data-key-hint]");
-  var PERIOD = 30, busy = false, relock = null;
+  var member = load(STORE) || { name: "Member", first: "Member" };
+  var nameEl = $("[data-key-name]"), lockBtn = $("[data-key-tap]"), lockText = $("[data-key-text]"), relock = null;
 
-  // A rotating code from the member number and the current 30-second window.
-  // A real system would use a secret key per phone (like TOTP) checked by the door controller.
-  function codeFor(id, win) {
-    var s = id + ":" + win, h = 2166136261;
-    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
-    return String(h % 1000000).padStart(6, "0");
-  }
-  function windowNow() { return Math.floor(Date.now() / 1000 / PERIOD); }
+  function setMember(m) { member = m; nameEl.textContent = "Hi, " + (m.first || m.name); }
 
-  function setMember(m) {
-    member = m;
-    nameEl.textContent = "Hi, " + (m.first || m.name);
-    hintEl.textContent = m.sample ? "get a membership above, or tap with the sample member below." : "you're signed up as " + m.name + " (" + m.id + "). Tap to unlock.";
-    renderStatus(); tick();
-  }
-  function renderStatus() {
-    statusEl.classList.toggle("is-off", !member.active);
-    statusEl.innerHTML = '<span class="dot"></span>' + (member.active ? "Membership active" : "Access turned off");
-    toggle.textContent = member.active ? "Turn off this member's access" : "Turn access back on";
-  }
-  function tick() {
-    var secs = Math.floor(Date.now() / 1000), left = PERIOD - (secs % PERIOD);
-    codeEl.textContent = codeFor(member.id, windowNow()).replace(/(\d{3})(\d{3})/, "$1 $2");
-    barEl.style.width = (left / PERIOD * 100) + "%";
-    timeEl.textContent = "New code in " + left + "s";
-  }
-  setInterval(tick, 1000);
-
-  function setReader(state, msg) {
-    reader.classList.remove("is-ok", "is-no", "is-wait");
-    if (state) reader.classList.add(state);
-    msgEl.textContent = msg;
-  }
-  function logEntry(ok) {
-    var empty = $(".log-empty", logEl); if (empty) empty.remove();
-    var li = document.createElement("li");
-    var t = new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
-    li.innerHTML = "<span></span><span></span>";
-    li.firstChild.textContent = member.name;
-    li.lastChild.textContent = t + (ok ? " · in" : " · denied");
-    li.lastChild.className = ok ? "ok" : "no";
-    logEl.insertBefore(li, logEl.firstChild);
-    while (logEl.children.length > 4) logEl.removeChild(logEl.lastChild);
-  }
-
-  tapBtn.addEventListener("click", function () {
-    if (busy) return; busy = true; clearTimeout(relock);
-    var sent = codeFor(member.id, windowNow());
-    tapBtn.disabled = true; tapBtn.classList.add("is-sending"); footEl.textContent = "Sending code " + sent.replace(/(\d{3})(\d{3})/, "$1 $2") + "…";
-    setReader("is-wait", "Reading phone…");
-    setTimeout(function () {
-      tapBtn.classList.remove("is-sending");
-      // the door checks: is this member active, and does the code match this 30-second window (or the one just before)?
-      var w = windowNow(), valid = sent === codeFor(member.id, w) || sent === codeFor(member.id, w - 1);
-      if (member.active && valid) {
-        setReader("is-ok", "Access granted. Door unlocked. Welcome, " + (member.first || member.name) + "!");
-        footEl.textContent = "Door unlocked";
-        logEntry(true);
-      } else {
-        setReader("is-no", "Access denied. This membership isn't active. Please see the front desk or call (509) 698-2829.");
-        footEl.textContent = "Access denied";
-        logEntry(false);
-      }
-      relock = setTimeout(function () {
-        setReader("", member.active ? "Locked. Waiting for a phone." : "Locked. Waiting for a phone.");
-        footEl.textContent = "Hold your phone near the door reader";
-      }, 4000);
-      tapBtn.disabled = false; busy = false;
-    }, 1200);
-  });
-
-  toggle.addEventListener("click", function () {
-    member.active = !member.active;
-    if (!member.sample) save(STORE, member);
-    renderStatus();
+  lockBtn.addEventListener("click", function () {
+    clearTimeout(relock);
+    lockBtn.classList.add("is-open");
+    lockBtn.setAttribute("aria-label", "Door unlocked");
+    lockText.textContent = "Unlocked. Come on in!";
+    relock = setTimeout(function () {
+      lockBtn.classList.remove("is-open");
+      lockBtn.setAttribute("aria-label", "Unlock the front door");
+      lockText.textContent = "Tap to unlock";
+    }, 4000);
   });
 
   setMember(member);

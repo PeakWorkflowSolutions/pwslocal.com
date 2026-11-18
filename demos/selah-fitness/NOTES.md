@@ -43,11 +43,8 @@ Double-click `index.html`. No server, no install, no build step, and no JavaScri
    5. **Welcome:** member card with name, plan, member # (SF-xxxx), amount paid with last 4 digits, and "Phone key active". The button jumps to the phone key.
    - **Pre-filled for the walk-through (Nov 18):** every step starts filled in with a sample member, Alex Morgan, including the checkboxes, a drawn signature and the test card, so you can just click Continue. Everything can still be edited, and Clear removes the signature. To start with empty forms, set `DEMO_FILL = false` at the top of `js/join.js`.
    - Only name, plan, member #, last 4 and paid amount are saved, in that browser, so the phone key can greet the member. No full card, CVC, birthday or phone.
-5b. **Phone key, "Your phone is your key" (demo, Nov 18).** The pitch: replace the chip fob with a tap of the phone.
-   - Steps (walk up, tap the phone, door unlocks) and benefits (no lost fobs, access turned off right away, entry log).
-   - A phone mockup shows the member's name, Active status and a 6-digit door code that changes every 30 seconds. **Tap to unlock** sends the code to a door-reader mockup, which turns green ("Access granted. Door unlocked.") and relocks after 4 seconds.
-   - **Owner view** under the reader: turn a member's access off (the next tap is red, "Access denied") or back on, plus a log of the last entries.
-   - Before anyone signs up it works with "Sample Member". After sign-up it uses the new member.
+5b. **Phone key (Nov 18, simplified at Marcos's request).** Just a phone mockup: "24/7 Selah Fitness", "Hi, [name]", "Membership active" and one big gold lock button. Tap it and it turns green with an open lock, "Unlocked. Come on in!", then locks again after 4 seconds. Marcos pitches the idea out loud, so there's no pitch text, door code, door reader or owner view on the page.
+   - Before anyone signs up it says "Hi, Member". After sign-up it greets the new member.
    - For a real build: an app or web pass on the phone, an NFC or Bluetooth reader at the door, and a door controller tied to the member list (for example Kisi, Openpath/Avigilon Alta, Brivo, or the gym software's own access system). Payments through Stripe or the gym's billing software.
 6. **Contact:** call, text, email (247selahfitness@gmail.com), Instagram and Facebook.
 
@@ -75,7 +72,7 @@ Double-click `index.html`. No server, no install, no build step, and no JavaScri
 Sign-up and phone key (Nov 18): 43 checks passed on phone and desktop:
 - Get a membership opens the sign-up; empty fields, bad email, unchecked agreements, a typed name that doesn't match, bad card, past expiry and short CVC are all caught on the page (no pop-ups).
 - The test card goes through, the welcome card shows name, SF- member # and last 4, and only those basics are saved.
-- The phone key greets the new member, unlocks the door, shows Access denied after access is turned off, logs each entry, and remembers the member after a reload.
+- The phone key greets the new member; tapping the lock unlocks (green, open lock) and it relocks after 4 seconds. No pitch text, code, reader or owner view remain.
 - No sideways scroll, no errors. Screenshots checked by eye.
 
 Site checks: all 18 passed:

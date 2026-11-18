@@ -134,51 +134,21 @@
     <!-- PHONE KEY -->
     <section id="key" class="section section-dark keysec">
       <div class="pulse-divider" aria-hidden="true"></div>
-      <div class="wrap key-grid">
-        <div class="key-copy">
-          <p class="eyebrow">New idea</p>
-          <h2 class="title">Your phone is your key</h2>
-          <p class="lede">Today members carry a chip key fob and hold it up to the door. With the 24/7 Selah Fitness app, your phone does the same job.</p>
-          <ol class="key-steps">
-            <li><b>Walk up to the door</b><span>Open the app. Your key shows a code that changes every 30 seconds.</span></li>
-            <li><b>Tap your phone on the reader</b><span>The phone sends that code to the door.</span></li>
-            <li><b>Door unlocks</b><span>The reader checks the code against active memberships and lets you in.</span></li>
-          </ol>
-          <ul class="key-perks">
-            <li>No fobs to lose, copy or hand out</li>
-            <li>Access turns off right away when a membership ends</li>
-            <li>See every entry with a name and time</li>
-          </ul>
-          <p class="key-try">Try it: <span data-key-hint>get a membership above, or tap with the sample member below.</span></p>
-        </div>
-
-        <div class="key-demo" aria-label="Phone key demo">
-          <div class="phone">
-            <div class="phone-notch" aria-hidden="true"></div>
-            <div class="app">
-              <p class="app-brand"><b>24/7</b> Selah Fitness</p>
-              <p class="app-hi" data-key-name>Hi, Sample Member</p>
-              <p class="app-status" data-key-status><span class="dot"></span>Membership active</p>
-              <div class="app-code">
-                <span class="app-code-label">Your door code</span>
-                <span class="app-code-num" data-key-code>------</span>
-                <span class="app-code-bar"><i data-key-bar></i></span>
-                <span class="app-code-time" data-key-time>New code in 30s</span>
-              </div>
-              <button type="button" class="tap-btn" data-key-tap><span class="nfc" aria-hidden="true"><i></i><i></i><i></i></span>Tap to unlock</button>
-              <p class="app-foot" data-key-foot>Hold your phone near the door reader</p>
-            </div>
-          </div>
-
-          <div class="reader" data-reader>
-            <p class="reader-title">Front door reader</p>
-            <div class="reader-light" data-reader-light aria-hidden="true"></div>
-            <p class="reader-msg" data-reader-msg aria-live="polite">Locked. Waiting for a phone.</p>
-            <div class="owner">
-              <p class="owner-title">Owner view</p>
-              <button type="button" class="btn-small" data-key-toggle>Turn off this member's access</button>
-              <ul class="entry-log" data-entry-log><li class="log-empty">No entries yet</li></ul>
-            </div>
+      <div class="wrap key-only">
+        <div class="phone">
+          <div class="phone-notch" aria-hidden="true"></div>
+          <div class="app">
+            <p class="app-brand"><b>24/7</b> Selah Fitness</p>
+            <p class="app-hi" data-key-name>Hi, Member</p>
+            <p class="app-status"><span class="dot"></span>Membership active</p>
+            <button type="button" class="lock-btn" data-key-tap aria-label="Unlock the front door">
+              <svg class="lock-icon" viewBox="0 0 64 64" aria-hidden="true">
+                <path class="shackle" d="M20 28V20a12 12 0 0 1 24 0v8" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+                <rect x="12" y="28" width="40" height="30" rx="6" fill="currentColor"/>
+                <circle cx="32" cy="41" r="4" class="keyhole"/><rect x="30" y="42" width="4" height="8" rx="2" class="keyhole"/>
+              </svg>
+            </button>
+            <p class="lock-text" data-key-text aria-live="polite">Tap to unlock</p>
           </div>
         </div>
       </div>
