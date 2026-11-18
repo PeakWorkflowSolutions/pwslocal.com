@@ -2,6 +2,10 @@
 
 Built Nov 12, 2026 from Marcos's full scrape (Facebook, Instagram, Google Places, Yelp). The gym is on board and waiting for the demo (per Marcos, Nov 12, 2026). Published as an artifact.
 
+## Live
+
+https://selah-fitness-247.netlify.app. Deployed Nov 18, 2026 to the Netlify project `selah-fitness-247`. Anyone can open it, no sign-in needed. Demo sign-in: alex.morgan@example.com / Selah2026!
+
 ## How to open it
 
 Double-click `index.html`. No server, no install, no build step, and no JavaScript.
