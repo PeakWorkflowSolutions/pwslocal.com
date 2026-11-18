@@ -41,6 +41,7 @@ Double-click `index.html`. No server, no install, no build step, and no JavaScri
    3. **Paperwork:** membership & billing agreement, liability waiver, 24/7 access rules, a 3-question health check, typed name (must match) and a drawn signature with today's date. **Sample wording**, labeled for the owner's attorney to review.
    4. **Pay:** demo checkout. Test card 4242 4242 4242 4242, any future date, any 3 digits. Card number is checked and formatted. No card is charged and nothing is sent anywhere.
    5. **Welcome:** member card with name, plan, member # (SF-xxxx), amount paid with last 4 digits, and "Phone key active". The button jumps to the phone key.
+   - **Pre-filled for the walk-through (Nov 18):** every step starts filled in with a sample member, Alex Morgan, including the checkboxes, a drawn signature and the test card, so you can just click Continue. Everything can still be edited, and Clear removes the signature. To start with empty forms, set `DEMO_FILL = false` at the top of `js/join.js`.
    - Only name, plan, member #, last 4 and paid amount are saved, in that browser, so the phone key can greet the member. No full card, CVC, birthday or phone.
 5b. **Phone key, "Your phone is your key" (demo, Nov 18).** The pitch: replace the chip fob with a tap of the phone.
    - Steps (walk up, tap the phone, door unlocks) and benefits (no lost fobs, access turned off right away, entry log).

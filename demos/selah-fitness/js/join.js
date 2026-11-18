@@ -13,6 +13,17 @@
   var KEY_FEE = 0; // the phone key replaces the chip fob, so there's no fob fee
   var STORE = "selah-fitness-demo-member";
 
+  // For the walk-through: every step starts filled in with a sample member,
+  // so you can just click Continue. Set to false to start with empty forms.
+  var DEMO_FILL = true;
+  var nextYear = String((new Date().getFullYear() + 2) % 100).padStart(2, "0");
+  var SAMPLE_FILL = {
+    first: "Alex", last: "Morgan", dob: "1990-06-15", phone: "(509) 555-0142", email: "alex.morgan@example.com",
+    street: "210 W Naches Ave", city: "Selah", zip: "98942", ecName: "Jamie Morgan", ecPhone: "(509) 555-0177",
+    h1: "No", h2: "No", h3: "No", sigName: "Alex Morgan",
+    card: "4242 4242 4242 4242", exp: "12/" + nextYear, cvc: "123", cardName: "Alex Morgan"
+  };
+
   /* ---------- tiny storage with an in-memory fallback ---------- */
   var mem = {};
   function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { mem[k] = v; } }
@@ -62,6 +73,10 @@
     $$(".bad", form).forEach(function (el) { el.classList.remove("bad"); });
     $$(".jerr", form).forEach(function (el) { el.textContent = ""; });
     clearPad();
+    if (DEMO_FILL) {
+      Object.keys(SAMPLE_FILL).forEach(function (k) { if (form[k]) form[k].value = SAMPLE_FILL[k]; });
+      ["agreeMembership", "agreeWaiver", "agreeRules"].forEach(function (n) { form[n].checked = true; });
+    }
     show(1);
   }
 
@@ -78,7 +93,7 @@
     if (n === 4) renderOrder();
     form.scrollTop = 0; dlg.scrollTop = 0;
     var h = $('.jstep[data-step="' + n + '"] h2', form); if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
-    if (n === 3) sizePad();
+    if (n === 3) { sizePad(); if (DEMO_FILL && !signed) sampleSignature(); }
   }
 
   function plan() { var v = (form.plan && form.plan.value) || "monthly"; return PLANS.filter(function (p) { return p.id === v; })[0]; }
@@ -190,6 +205,20 @@
     var ratio = window.devicePixelRatio || 1, w = Math.round(r.width * ratio), h = Math.round(r.height * ratio);
     if (pad.width === w && pad.height === h) return;
     pad.width = w; pad.height = h; signed = false;
+  }
+  // a pre-drawn signature for the demo (the member can clear it and sign themselves)
+  function sampleSignature() {
+    var w = pad.width, h = pad.height, r = window.devicePixelRatio || 1;
+    ctx.strokeStyle = "#16181A"; ctx.lineWidth = 2.5 * r; ctx.lineCap = "round"; ctx.lineJoin = "round";
+    ctx.beginPath();
+    for (var i = 0; i <= 60; i++) {
+      var t = i / 60, x = w * (0.08 + t * 0.5), y = h * (0.6 - 0.22 * Math.sin(t * Math.PI * 5) * (1 - t * 0.4) - 0.08 * Math.sin(t * Math.PI));
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.moveTo(w * 0.6, h * 0.62); ctx.bezierCurveTo(w * 0.66, h * 0.2, w * 0.7, h * 0.85, w * 0.78, h * 0.45);
+    ctx.moveTo(w * 0.1, h * 0.78); ctx.lineTo(w * 0.8, h * 0.74);
+    ctx.stroke();
+    signed = true;
   }
   function clearPad() { ctx.clearRect(0, 0, pad.width, pad.height); signed = false; }
   function pt(e) { var r = pad.getBoundingClientRect(), s = pad.width / r.width; return { x: (e.clientX - r.left) * s, y: (e.clientY - r.top) * s }; }
