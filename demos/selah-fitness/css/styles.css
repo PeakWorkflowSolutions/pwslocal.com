@@ -55,7 +55,7 @@ h1, h2, h3 { margin: 0; line-height: 1.05; }
    running right under them with one big up-and-down spike between the 24 and
    the 7, and two yellow banners underneath. */
 .sign-lockup { display: inline-grid; justify-items: stretch; }
-.sign-num { position: relative; display: inline-flex; align-items: stretch; font: 400 clamp(104px, 32vw, 210px)/.9 var(--block); color: var(--gold);
+.sign-num { position: relative; display: inline-grid; grid-template-columns: repeat(5, auto); row-gap: .2em; align-items: stretch; font: 400 clamp(104px, 32vw, 210px)/.9 var(--block); color: var(--gold);
   letter-spacing: .01em; -webkit-text-stroke: .025em #0B0B0C; paint-order: stroke fill; text-shadow: 0 0 22px rgba(242,194,48,.25); --beat-y: -0.07em; }
 .sign-num > span { position: relative; display: block; }
 .beat-line { width: .18em; }
@@ -65,8 +65,12 @@ h1, h2, h3 { margin: 0; line-height: 1.05; }
 .beat svg { position: absolute; left: 0; width: 100%; height: 1.5em; bottom: calc(var(--beat-y) - 0.5em); overflow: visible;
   filter: drop-shadow(0 0 3px #FF7A4D) drop-shadow(0 0 10px rgba(255,64,32,.8)); }
 .beat polyline { fill: none; stroke: #FF5A36; stroke-width: 4; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-.sign-banners { display: flex; justify-content: space-between; gap: 18%; margin-top: clamp(10px, 3vw, 18px); }
-.sign-banners span { flex: 1; background: var(--gold); transform: skewX(-14deg); box-shadow: 0 0 0 2px #0B0B0C, 0 0 18px rgba(242,194,48,.25); }
+/* Banners sit below the heartbeat line: SELAH under the 24, FITNESS under the 7,
+   leaving the spike's column clear so nothing covers the beat. */
+.sign-num > .sign-banners { display: contents; }
+.sign-banners span { grid-row: 2; align-self: start; -webkit-text-stroke: 0; text-shadow: none; background: var(--gold); transform: skewX(-14deg); box-shadow: 0 0 0 2px #0B0B0C, 0 0 18px rgba(242,194,48,.25); }
+.sign-banners span:first-child { grid-column: 1 / 3; margin: 0 .06em 0 .1em; }
+.sign-banners span:last-child { grid-column: 4 / 6; margin: 0 .1em 0 .06em; }
 .sign-banners i { display: block; transform: skewX(14deg); font: 400 clamp(18px, 5.4vw, 34px)/1.35 var(--block); font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: #0B0B0C; padding: 0 .3em; }
 .hero-line { font-size: clamp(18px, 4.6vw, 22px); max-width: 30em; margin: 0 auto 6px; color: #fff; }
 .hero-new { margin: 0 0 24px; font: 600 15px var(--head); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
