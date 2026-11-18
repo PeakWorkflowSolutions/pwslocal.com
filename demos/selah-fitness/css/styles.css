@@ -175,6 +175,22 @@ h1, h2, h3 { margin: 0; line-height: 1.05; }
 .nav-join { margin-left: 6px; padding: 8px 14px; border: 0; border-radius: 4px; background: var(--gold); color: var(--ink); font: 600 13px var(--head); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; white-space: nowrap; }
 .nav-join:hover { background: #fff; }
 button.btn { cursor: pointer; font-family: inherit; }
+.nav-signin { margin-left: 6px; padding: 8px 10px; border: 1px solid #6A6F76; border-radius: 4px; background: none; color: var(--silver); font: 600 13px var(--head); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; white-space: nowrap; }
+.nav-signin:hover { border-color: var(--gold); color: var(--gold); }
+.hero-signin { margin: 14px 0 0; text-align: center; color: #A9AEB5; font-size: 15px; }
+.link-gold { border: 0; background: none; padding: 0; color: var(--gold); font: 600 15px var(--body); text-decoration: underline; cursor: pointer; }
+.link-quiet { margin-top: 6px; border: 0; background: none; color: var(--gray); font: 13px var(--body); text-decoration: underline; cursor: pointer; }
+.key-out, .key-in { display: flex; flex-direction: column; align-items: center; gap: 10px; flex: 1; width: 100%; }
+.key-out { justify-content: center; }
+.lock-dim { width: 64px; height: 64px; color: #555A61; margin-bottom: 4px; }
+.key-out-text { margin: 0; color: #A9AEB5; font-size: 14px; }
+.key-signin { margin-top: 10px; min-height: 46px; width: 100%; }
+.signin { width: min(440px, 100% - 20px); }
+.grid1 { display: grid; gap: 12px; }
+.pw { position: relative; display: block; }
+.pw input { padding-right: 64px; }
+.pw-show { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); border: 0; background: none; color: var(--steel); font: 600 13px var(--body); text-decoration: underline; cursor: pointer; padding: 6px; }
+.signin .join-nav { align-items: center; }
 
 /* ---------- Phone key ---------- */
 .keysec { overflow: hidden; }
@@ -263,3 +279,10 @@ button.btn { cursor: pointer; font-family: inherit; }
 .btn-line-dark:hover { border-color: var(--ink); color: var(--ink); }
 .join-nav .btn[hidden] { display: none !important; }
 body.modal-open { overflow: hidden; }
+
+/* On phones, keep the header to the logo plus Sign in and Join */
+@media (max-width: 640px) {
+  .nav a { display: none; }
+  .mark span { display: none; }
+  .nav { overflow: visible; }
+}

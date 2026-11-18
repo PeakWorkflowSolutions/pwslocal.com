@@ -11,14 +11,14 @@
     { id: "student", name: "Student / Senior", note: "24/7 access with a valid ID", price: 28, per: "/mo" }
   ];
   var KEY_FEE = 0; // the phone key replaces the chip fob, so there's no fob fee
-  var STORE = "selah-fitness-demo-member";
+  var STORE = "selah-fitness-demo-member", SESSION = "selah-fitness-demo-session";
 
   // For the walk-through: every step starts filled in with a sample member,
   // so you can just click Continue. Set to false to start with empty forms.
   var DEMO_FILL = true;
   var nextYear = String((new Date().getFullYear() + 2) % 100).padStart(2, "0");
   var SAMPLE_FILL = {
-    first: "Alex", last: "Morgan", dob: "1990-06-15", phone: "(509) 555-0142", email: "alex.morgan@example.com",
+    first: "Alex", last: "Morgan", dob: "1990-06-15", phone: "(509) 555-0142", email: "alex.morgan@example.com", password: "Selah2026!",
     street: "210 W Naches Ave", city: "Selah", zip: "98942", ecName: "Jamie Morgan", ecPhone: "(509) 555-0177",
     h1: "No", h2: "No", h3: "No", sigName: "Alex Morgan",
     card: "4242 4242 4242 4242", exp: "12/" + nextYear, cvc: "123", cardName: "Alex Morgan"
@@ -33,6 +33,13 @@
   function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
   function money(n) { return "$" + n.toFixed(2); }
   function digits(s) { return (s || "").replace(/\D/g, ""); }
+  // Demo only: the password is never saved, just a scrambled fingerprint of it.
+  // A real site would check passwords on its server.
+  function pwHash(email, pw) {
+    var str = "selah247:" + email.toLowerCase() + ":" + pw, h = 2166136261;
+    for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+    return h.toString(36);
+  }
 
   /* ============================================================
      MEMBERSHIP SIGN-UP
@@ -89,7 +96,7 @@
       li.classList.toggle("is-done", d < n);
     });
     back.hidden = n === 1 || n === LAST;
-    next.textContent = n === 4 ? "Pay " + money(total()) : n === LAST ? "Open your phone key" : "Continue";
+    next.textContent = n === 4 ? "Pay " + money(total()) : n === LAST ? "Sign in to your key" : "Continue";
     if (n === 4) renderOrder();
     form.scrollTop = 0; dlg.scrollTop = 0;
     var h = $('.jstep[data-step="' + n + '"] h2', form); if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
@@ -115,6 +122,7 @@
     if (!mark(f.ecPhone, digits(f.ecPhone.value).length !== 10)) { ok = false; msgs.push("Enter a 10-digit emergency contact phone."); }
     if (!mark(f.email, !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email.value.trim()))) { ok = false; msgs.push("Enter a valid email."); }
     if (!mark(f.zip, !/^\d{5}$/.test(f.zip.value))) { ok = false; msgs.push("Enter a 5-digit ZIP."); }
+    if (!mark(f.password, f.password.value.length < 8)) { ok = false; msgs.push("Create a password with 8 or more characters."); }
     err("info", ok ? "" : "Please fix the highlighted fields." + (msgs.length ? " " + msgs.join(" ") : ""));
     return ok;
   }
@@ -170,7 +178,7 @@
     if (step === 2) { if (checkInfo()) { if (!form.cardName.value) form.cardName.value = form.first.value.trim() + " " + form.last.value.trim(); show(3); } return; }
     if (step === 3) { if (checkPaper()) show(4); return; }
     if (step === 4) { if (checkPay()) pay(); return; }
-    if (step === LAST) { close(); var k = document.getElementById("key"); if (k) k.scrollIntoView({ behavior: "smooth" }); }
+    if (step === LAST) { close(); openSignin(); }
   });
 
   function pay() {
@@ -181,6 +189,8 @@
       var member = {
         name: form.first.value.trim() + " " + form.last.value.trim(),
         first: form.first.value.trim(),
+        email: form.email.value.trim().toLowerCase(),
+        pw: pwHash(form.email.value.trim(), form.password.value),
         plan: p.name,
         id: "SF-" + String(Math.floor(1000 + Math.random() * 9000)),
         last4: digits(form.card.value).slice(-4),
@@ -189,11 +199,13 @@
         joined: new Date().toISOString()
       };
       save(STORE, member);
+      save(SESSION, null); // new member signs in to use the key
+      $("[data-mc-user]").textContent = member.email;
       $("[data-mc-name]").textContent = member.name;
       $("[data-mc-plan]").textContent = member.plan;
       $("[data-mc-id]").textContent = member.id;
       $("[data-mc-paid]").textContent = member.paid + " (card ending " + member.last4 + ")";
-      setMember(member);
+      setAccount(member);
       show(5);
     }, 900);
   }
@@ -235,24 +247,81 @@
   window.addEventListener("resize", function () { if (step === 3 && !signed) sizePad(); });
 
   /* ============================================================
-     PHONE KEY: one button that unlocks the door
+     SIGN IN + PHONE KEY
      ============================================================ */
-  var member = load(STORE) || { name: "Member", first: "Member" };
+  // Until someone signs up, the sample member (Alex Morgan) can sign in.
+  var SAMPLE_ACCOUNT = { name: "Alex Morgan", first: "Alex", email: SAMPLE_FILL.email, pw: pwHash(SAMPLE_FILL.email, SAMPLE_FILL.password) };
+  var account = load(STORE) || SAMPLE_ACCOUNT;
+  if (!account.email || !account.pw) account = SAMPLE_ACCOUNT; // saved before sign-in existed
+
+  var sdlg = $("#signin"), sform = $("#signin-form"), serr = $("[data-signin-err]");
+  var keyOut = $("[data-key-out]"), keyIn = $("[data-key-in]");
   var nameEl = $("[data-key-name]"), lockBtn = $("[data-key-tap]"), lockText = $("[data-key-text]"), relock = null;
 
-  function setMember(m) { member = m; nameEl.textContent = "Hi, " + (m.first || m.name); }
+  function setAccount(m) { account = m; render(); }
+  function signedIn() { var e = load(SESSION); return !!e && e === account.email; }
 
+  function render() {
+    var on = signedIn();
+    keyOut.hidden = on; keyIn.hidden = !on;
+    nameEl.textContent = "Hi, " + (account.first || account.name);
+    $$(".nav-signin").forEach(function (b) { b.textContent = on ? "My key" : "Sign in"; });
+    if (!on) lockReset();
+  }
+
+  function openSignin() {
+    sform.reset(); serr.textContent = "";
+    $$(".bad", sform).forEach(function (el) { mark(el, false); });
+    sform.pass.type = "password"; $("[data-pw-show]").textContent = "Show";
+    if (DEMO_FILL) { sform.user.value = account.email; sform.pass.value = SAMPLE_FILL.password; }
+    document.body.classList.add("modal-open");
+    if (typeof sdlg.showModal === "function") sdlg.showModal(); else sdlg.setAttribute("open", "");
+  }
+  function closeSignin() {
+    document.body.classList.toggle("modal-open", false);
+    if (typeof sdlg.close === "function" && sdlg.open) sdlg.close(); else sdlg.removeAttribute("open");
+  }
+  function goKey() { var k = document.getElementById("key"); if (k) k.scrollIntoView({ behavior: "smooth" }); }
+
+  $$("[data-signin]").forEach(function (b) {
+    b.addEventListener("click", function () { if (signedIn()) goKey(); else openSignin(); });
+  });
+  $("[data-signin-close]").addEventListener("click", closeSignin);
+  sdlg.addEventListener("close", function () { document.body.classList.toggle("modal-open", false); });
+  $("[data-signin-join]").addEventListener("click", function () { closeSignin(); open(); });
+  $("[data-pw-show]").addEventListener("click", function () {
+    var show = sform.pass.type === "password";
+    sform.pass.type = show ? "text" : "password"; this.textContent = show ? "Hide" : "Show";
+  });
+  sform.addEventListener("input", function (e) { mark(e.target, false); serr.textContent = ""; });
+
+  sform.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var user = sform.user.value.trim().toLowerCase(), pass = sform.pass.value;
+    mark(sform.user, !user); mark(sform.pass, !pass);
+    if (!user || !pass) { serr.textContent = "Enter your email and password."; return; }
+    if (user !== account.email) { mark(sform.user, true); serr.textContent = "We couldn't find a membership with that email."; return; }
+    if (pwHash(user, pass) !== account.pw) { mark(sform.pass, true); serr.textContent = "That password isn't right. Try again."; sform.pass.select(); return; }
+    save(SESSION, account.email);
+    closeSignin(); render(); goKey();
+  });
+
+  $("[data-signout]").addEventListener("click", function () { save(SESSION, null); render(); });
+
+  function lockReset() {
+    clearTimeout(relock);
+    lockBtn.classList.toggle("is-open", false);
+    lockBtn.setAttribute("aria-label", "Unlock the front door");
+    lockText.textContent = "Tap to unlock";
+  }
   lockBtn.addEventListener("click", function () {
+    if (!signedIn()) { render(); return; } // the key only works while signed in
     clearTimeout(relock);
     lockBtn.classList.add("is-open");
     lockBtn.setAttribute("aria-label", "Door unlocked");
     lockText.textContent = "Unlocked. Come on in!";
-    relock = setTimeout(function () {
-      lockBtn.classList.remove("is-open");
-      lockBtn.setAttribute("aria-label", "Unlock the front door");
-      lockText.textContent = "Tap to unlock";
-    }, 4000);
+    relock = setTimeout(lockReset, 4000);
   });
 
-  setMember(member);
+  render();
 })();

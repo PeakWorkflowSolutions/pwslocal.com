@@ -46,6 +46,13 @@ Double-click `index.html`. No server, no install, no build step, and no JavaScri
 5b. **Phone key (Nov 18, simplified at Marcos's request).** Just a phone mockup: "24/7 Selah Fitness", "Hi, [name]", "Membership active" and one big gold lock button. Tap it and it turns green with an open lock, "Unlocked. Come on in!", then locks again after 4 seconds. Marcos pitches the idea out loud, so there's no pitch text, door code, door reader or owner view on the page.
    - Before anyone signs up it says "Hi, Member". After sign-up it greets the new member.
    - For a real build: an app or web pass on the phone, an NFC or Bluetooth reader at the door, and a door controller tied to the member list (for example Kisi, Openpath/Avigilon Alta, Brivo, or the gym software's own access system). Payments through Stripe or the gym's billing software.
+5c. **Member sign in (Nov 18).** The phone key is guarded by a sign-in:
+   - **Sign in** button in the header (next to Join) and an "Already a member? Sign in" link under the hero buttons. On phones the header shows just the 24/7 logo, Sign in and Join.
+   - Signed out, the phone shows a gray lock, "Members only. Sign in to use your door key." and a Sign in button. The unlock button only appears once signed in, and "Sign out" locks it again.
+   - Username is the member's email. Sign-up step 2 now asks for a password (8+ characters).
+   - After paying, the button reads **Sign in to your key** and opens the sign-in already filled in.
+   - Pre-filled for the walk-through: alex.morgan@example.com / **Selah2026!** (works before anyone signs up). A wrong password, unknown email or empty fields show an error.
+   - Demo only: the password is checked in the browser and saved only as a scrambled fingerprint. A real build checks it on a server (or the gym's member software).
 6. **Contact:** call, text, email (247selahfitness@gmail.com), Instagram and Facebook.
 
 ## What I deliberately did NOT put on the site
@@ -68,6 +75,8 @@ Double-click `index.html`. No server, no install, no build step, and no JavaScri
 7. Whether to claim the Yelp listing and add a Google Business profile.
 
 ## Testing done
+
+Sign in (Nov 18): 40 checks passed on phone and desktop: the key stays hidden until sign-in; wrong password, unknown email and empty fields are rejected; sign-in survives a reload; sign out locks the key; a new member signs in with the password they created; the password isn't stored in plain text.
 
 Sign-up and phone key (Nov 18): 43 checks passed on phone and desktop:
 - Get a membership opens the sign-up; empty fields, bad email, unchecked agreements, a typed name that doesn't match, bad card, past expiry and short CVC are all caught on the page (no pop-ups).

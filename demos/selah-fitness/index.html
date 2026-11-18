@@ -23,6 +23,7 @@
         <a href="#equipment">Equipment</a>
         <a href="#key">Phone Key</a>
         <a href="#visit">Visit</a>
+        <button type="button" class="nav-signin" data-signin>Sign in</button>
         <button type="button" class="nav-join" data-join>Join</button>
       </nav>
     </div>
@@ -44,6 +45,7 @@
           <button type="button" class="btn btn-gold" data-join>Get a membership</button>
           <a class="btn btn-line" href="tel:+15096982829">Call (509) 698-2829</a>
         </div>
+        <p class="hero-signin">Already a member? <button type="button" class="link-gold" data-signin>Sign in</button></p>
         <p class="hero-where">103 N 1st St, Ste D &middot; Selah, WA</p>
       </div>
     </section>
@@ -139,6 +141,16 @@
           <div class="phone-notch" aria-hidden="true"></div>
           <div class="app">
             <p class="app-brand"><b>24/7</b> Selah Fitness</p>
+            <div class="key-out" data-key-out>
+              <svg class="lock-icon lock-dim" viewBox="0 0 64 64" aria-hidden="true">
+                <path d="M20 28V20a12 12 0 0 1 24 0v8" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+                <rect x="12" y="28" width="40" height="30" rx="6" fill="currentColor"/>
+              </svg>
+              <p class="app-hi">Members only</p>
+              <p class="key-out-text">Sign in to use your door key.</p>
+              <button type="button" class="btn btn-gold key-signin" data-signin>Sign in</button>
+            </div>
+            <div class="key-in" data-key-in hidden>
             <p class="app-hi" data-key-name>Hi, Member</p>
             <p class="app-status"><span class="dot"></span>Membership active</p>
             <button type="button" class="lock-btn" data-key-tap aria-label="Unlock the front door">
@@ -149,6 +161,8 @@
               </svg>
             </button>
             <p class="lock-text" data-key-text aria-live="polite">Tap to unlock</p>
+            <button type="button" class="link-quiet" data-signout>Sign out</button>
+            </div>
           </div>
         </div>
       </div>
@@ -246,7 +260,8 @@
           <label class="jf"><span>Last name</span><input name="last" autocomplete="family-name"></label>
           <label class="jf"><span>Date of birth</span><input name="dob" type="date"></label>
           <label class="jf"><span>Phone</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(509) 555-0123"></label>
-          <label class="jf jf-wide"><span>Email</span><input name="email" type="email" autocomplete="email"></label>
+          <label class="jf jf-wide"><span>Email (this is your username)</span><input name="email" type="email" autocomplete="email"></label>
+          <label class="jf jf-wide"><span>Create a password (8 or more characters)</span><input name="password" type="password" autocomplete="new-password"></label>
           <label class="jf jf-wide"><span>Street address</span><input name="street" autocomplete="street-address"></label>
           <label class="jf"><span>City</span><input name="city" autocomplete="address-level2" value="Selah"></label>
           <label class="jf"><span>ZIP</span><input name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5"></label>
@@ -307,14 +322,38 @@
           <p class="mc-row"><span>Plan</span><b data-mc-plan></b></p>
           <p class="mc-row"><span>Member #</span><b data-mc-id></b></p>
           <p class="mc-row"><span>Paid</span><b data-mc-paid></b></p>
+          <p class="mc-row"><span>Username</span><b data-mc-user></b></p>
           <p class="mc-key"><span class="dot"></span>Phone key active</p>
         </div>
-        <p class="jnote">Your paperwork is signed and your phone key is ready. Use it at the front door any time, day or night.</p>
+        <p class="jnote">Your paperwork is signed and your phone key is ready. Sign in with your email and password to use it at the front door, any time, day or night.</p>
       </section>
 
       <div class="join-nav">
         <button type="button" class="btn btn-line-dark" data-join-back>Back</button>
         <button type="button" class="btn btn-gold" data-join-next>Continue</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- MEMBER SIGN IN (demo) -->
+  <dialog class="join signin" id="signin" aria-labelledby="signin-title">
+    <form class="join-box" id="signin-form" novalidate>
+      <div class="join-top">
+        <p class="join-mark"><b>24/7</b> Selah Fitness</p>
+        <button type="button" class="join-x" data-signin-close aria-label="Close">&times;</button>
+      </div>
+      <section class="jstep">
+        <h2 id="signin-title">Member sign in</h2>
+        <p class="jnote">Sign in to use your phone key.</p>
+        <div class="grid1">
+          <label class="jf"><span>Email (username)</span><input name="user" type="email" autocomplete="username"></label>
+          <label class="jf"><span>Password</span><span class="pw"><input name="pass" type="password" autocomplete="current-password"><button type="button" class="pw-show" data-pw-show>Show</button></span></label>
+        </div>
+        <p class="jerr" data-signin-err role="alert"></p>
+      </section>
+      <div class="join-nav">
+        <button type="button" class="link" data-signin-join>Not a member? Join</button>
+        <button type="submit" class="btn btn-gold">Sign in</button>
       </div>
     </form>
   </dialog>
