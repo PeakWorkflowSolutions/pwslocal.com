@@ -36,7 +36,7 @@ Double-click `index.html`. No server, no install, no build step, and no JavaScri
 4. **Reviews:** both Facebook reviews, word for word, including "nice openers" (probably meant "owners"; left as written). No star rating anywhere.
 5. **Visit:** 103 N 1st St, Ste D, a "Look for the yellow 24/7 sign" line, and a Directions link using their Google coordinates.
 5a. **Membership sign-up (demo, Nov 18)**, for the walk-through with the owner. "Get a membership" opens a 5-step sign-up:
-   1. **Plan:** Monthly $35, Annual $360, Student/Senior $28. These are **sample prices**, and the page says so. The owner sets the real rates.
+   1. **Plan:** one membership, **Monthly $29** (confirmed by Marcos, Nov 18). It's the only plan.
    2. **You:** name, date of birth (16+), phone, email, address, emergency contact.
    3. **Paperwork:** membership & billing agreement, liability waiver, 24/7 access rules, a 3-question health check, typed name (must match) and a drawn signature with today's date. **Sample wording**, labeled for the owner's attorney to review.
    4. **Pay:** demo checkout. Test card 4242 4242 4242 4242, any future date, any 3 digits. Card number is checked and formatted. No card is charged and nothing is sent anywhere.
@@ -57,7 +57,7 @@ Double-click `index.html`. No server, no install, no build step, and no JavaScri
 
 ## What I deliberately did NOT put on the site
 
-- **Prices.** None are published anywhere. The only prices are the sample ones inside the sign-up demo, labeled as samples. Elsewhere the site says "Call, text or email for current membership and personal training rates."
+- **Personal training prices.** Membership is $29/month (confirmed by Marcos, Nov 18) and is on the contact section and in the sign-up. Personal training rates aren't known, so the site says "Call, text or email for personal training rates."
 - **Staffed hours.** The sources conflict: Facebook says "Always open", Yelp says 24 hours, Google says 8 AM-10 PM. The site only says "24/7 member access", which matches the gym's name, Facebook and Yelp. It doesn't list staffed hours.
 - **Founding year, owner name, ratings, classes, trainer names.** Not confirmed, or not found.
 - **Anything about other gyms.** Anytime Fitness, Fully Charged, Selah Grace and Bebe Nails are all left out. The 2020 COVID fine was Anytime Fitness, not this gym.
@@ -67,7 +67,7 @@ Double-click `index.html`. No server, no install, no build step, and no JavaScri
 
 1. Who the owner or contact is.
 2. Hours: is it 24/7 member access with staffed hours of 8 AM-10 PM? If so, add staffed hours.
-3. Membership, day pass and personal training prices.
+3. Day pass and personal training prices (membership is $29/month).
 4. Classes and trainer names, if any. (Yelp lists "Cardio Classes".)
 5. Current photos of the gym floor, equipment and building sign, to add a photo section.
 6. How people join today, and what door system the chip fobs use (brand of reader/controller), to see if it can take phone keys.

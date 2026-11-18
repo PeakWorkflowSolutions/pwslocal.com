@@ -6,9 +6,7 @@
   "use strict";
 
   var PLANS = [
-    { id: "monthly", name: "Monthly", note: "24/7 access, month to month", price: 35, per: "/mo" },
-    { id: "annual", name: "Annual", note: "24/7 access, pay for the year", price: 360, per: "/yr" },
-    { id: "student", name: "Student / Senior", note: "24/7 access with a valid ID", price: 28, per: "/mo" }
+    { id: "monthly", name: "Monthly", note: "24/7 access, month to month", price: 29, per: "/mo" }
   ];
   var KEY_FEE = 0; // the phone key replaces the chip fob, so there's no fob fee
   var STORE = "selah-fitness-demo-member", SESSION = "selah-fitness-demo-session";
