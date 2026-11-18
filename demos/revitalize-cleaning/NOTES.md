@@ -2,6 +2,10 @@
 
 Built Nov 17, 2026 from Marcos's scrape (Facebook Page, posts and reels, Instagram, web search). **Approved** by Mari and Damian Shelton on Nov 17. They have no website today.
 
+## Live
+
+https://revitalize-cleaning-yakima.netlify.app. Deployed Nov 18, 2026 to the Netlify project `revitalize-cleaning-yakima`. Anyone can open it, no sign-in needed. It is still marked noindex, so search engines won't list it until that tag is removed.
+
 ## How to open it
 
 Double-click `index.html`. No server, no install, no build step.
