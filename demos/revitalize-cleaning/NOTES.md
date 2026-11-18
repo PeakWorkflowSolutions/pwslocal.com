@@ -24,6 +24,11 @@ Rebranded Nov 17 from the logo screenshot Marcos sent:
    - Residential: regular maintenance, deep cleaning, move-in and move-out.
    - Commercial: office spaces, restaurants, business facilities.
    - Real estate & new construction: listing cleans and new construction cleaning.
+3a. **Real estate cleaning (new, Nov 18):** their own job photos, Marcos sent 7. Each project is one row you swipe sideways, or use the arrows, with a "1 / 4" counter, so it doesn't take up the whole page.
+   - Project 1, tiled shower and bench: their before/after photo, shown full width.
+   - Project 2, shower with pebble floor: Before, After and two Detail close-ups.
+   - Project 3, tile floors: two After photos.
+   - The labels only describe what's in each photo. No client names or addresses.
 4. **Our story, "Built brick by brick"** (their own phrase), from the John L. Scott recommendation reel:
    - Mari started cleaning at a local church after losing her job, then cleaned listings for a Yakima real estate team.
    - With their encouragement she started her own business.
@@ -61,14 +66,14 @@ Until the URL is set, the form works in demo mode and says nothing was sent. The
 4. Services list: is anything missing, like carpets or windows?
 5. Prices, if they ever want them shown.
 6. Licensed, bonded or insured: if so, add it.
-7. The original logo file (for a sharper emblem), plus photos: before/after shots, their team, commercial jobs.
+7. The original logo file (for a sharper emblem). Also: are the 3 projects real estate listings? Do they want project names or locations? More photos would help, including commercial jobs and the two of them.
 8. Spelling: Damian, Damion or Damon?
 9. Permission to quote the John L. Scott recommendation and link the reel.
 10. Which Google account the quote-request sheet should live in, and who should get the email notice.
 
 ## Testing done
 
-All 22 checks passed:
+All 22 site checks and 19 photo-row checks passed:
 - **Content:** no prices, add-ons, licensed/bonded/insured claim, street address, invented phone, or same-name businesses. The recommendation and Facebook links are present.
 - **Form:**
   - Required-field and phone errors show on the page, never as pop-ups.
@@ -76,5 +81,6 @@ All 22 checks passed:
   - With a stand-in Google endpoint, it sends exactly one complete row.
   - If the sheet is down, the customer gets a clear error and no false confirmation.
 - **Apps Script**, run against a fake sheet: correct header and columns, and a request without a phone number is rejected.
+- **Photo rows**, on phone and desktop: the 3 projects have 1, 4 and 2 photos, and every photo loads. The arrows step through and stop at each end, the counter updates, a single-photo project hides its arrows, and the page itself never scrolls sideways.
 - No sideways scroll on a phone, no JavaScript errors.
 - Screenshots checked by eye on phone and desktop.
