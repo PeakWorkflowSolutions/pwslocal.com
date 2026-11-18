@@ -21,8 +21,9 @@
       <nav class="nav" aria-label="Main">
         <a href="#gym">The Gym</a>
         <a href="#equipment">Equipment</a>
+        <a href="#key">Phone Key</a>
         <a href="#visit">Visit</a>
-        <a href="#contact">Contact</a>
+        <button type="button" class="nav-join" data-join>Join</button>
       </nav>
     </div>
   </header>
@@ -40,8 +41,8 @@
         <p class="hero-line">Inclusive fitness facility here to help you meet all your fitness goals!</p>
         <p class="hero-new">Now offering personal training!</p>
         <div class="hero-cta">
-          <a class="btn btn-gold" href="tel:+15096982829">Call (509) 698-2829</a>
-          <a class="btn btn-line" href="#contact">Ask about membership</a>
+          <button type="button" class="btn btn-gold" data-join>Get a membership</button>
+          <a class="btn btn-line" href="tel:+15096982829">Call (509) 698-2829</a>
         </div>
         <p class="hero-where">103 N 1st St, Ste D &middot; Selah, WA</p>
       </div>
@@ -130,6 +131,59 @@
       </div>
     </section>
 
+    <!-- PHONE KEY -->
+    <section id="key" class="section section-dark keysec">
+      <div class="pulse-divider" aria-hidden="true"></div>
+      <div class="wrap key-grid">
+        <div class="key-copy">
+          <p class="eyebrow">New idea</p>
+          <h2 class="title">Your phone is your key</h2>
+          <p class="lede">Today members carry a chip key fob and hold it up to the door. With the 24/7 Selah Fitness app, your phone does the same job.</p>
+          <ol class="key-steps">
+            <li><b>Walk up to the door</b><span>Open the app. Your key shows a code that changes every 30 seconds.</span></li>
+            <li><b>Tap your phone on the reader</b><span>The phone sends that code to the door.</span></li>
+            <li><b>Door unlocks</b><span>The reader checks the code against active memberships and lets you in.</span></li>
+          </ol>
+          <ul class="key-perks">
+            <li>No fobs to lose, copy or hand out</li>
+            <li>Access turns off right away when a membership ends</li>
+            <li>See every entry with a name and time</li>
+          </ul>
+          <p class="key-try">Try it: <span data-key-hint>get a membership above, or tap with the sample member below.</span></p>
+        </div>
+
+        <div class="key-demo" aria-label="Phone key demo">
+          <div class="phone">
+            <div class="phone-notch" aria-hidden="true"></div>
+            <div class="app">
+              <p class="app-brand"><b>24/7</b> Selah Fitness</p>
+              <p class="app-hi" data-key-name>Hi, Sample Member</p>
+              <p class="app-status" data-key-status><span class="dot"></span>Membership active</p>
+              <div class="app-code">
+                <span class="app-code-label">Your door code</span>
+                <span class="app-code-num" data-key-code>------</span>
+                <span class="app-code-bar"><i data-key-bar></i></span>
+                <span class="app-code-time" data-key-time>New code in 30s</span>
+              </div>
+              <button type="button" class="tap-btn" data-key-tap><span class="nfc" aria-hidden="true"><i></i><i></i><i></i></span>Tap to unlock</button>
+              <p class="app-foot" data-key-foot>Hold your phone near the door reader</p>
+            </div>
+          </div>
+
+          <div class="reader" data-reader>
+            <p class="reader-title">Front door reader</p>
+            <div class="reader-light" data-reader-light aria-hidden="true"></div>
+            <p class="reader-msg" data-reader-msg aria-live="polite">Locked. Waiting for a phone.</p>
+            <div class="owner">
+              <p class="owner-title">Owner view</p>
+              <button type="button" class="btn-small" data-key-toggle>Turn off this member's access</button>
+              <ul class="entry-log" data-entry-log><li class="log-empty">No entries yet</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- REVIEWS -->
     <section class="section section-dark reviews" aria-labelledby="reviews-title">
       <div class="pulse-divider" aria-hidden="true"></div>
@@ -195,6 +249,107 @@
       <p class="small">Demo site by Peak Workflow Solutions</p>
     </div>
   </footer>
+  <!-- MEMBERSHIP SIGN-UP (demo) -->
+  <dialog class="join" id="join" aria-labelledby="join-title">
+    <form class="join-box" id="join-form" method="dialog" novalidate>
+      <div class="join-top">
+        <p class="join-mark"><b>24/7</b> Selah Fitness</p>
+        <button type="button" class="join-x" data-join-close aria-label="Close">&times;</button>
+      </div>
+      <ol class="join-steps" aria-label="Sign-up steps">
+        <li data-dot="1" class="is-on">Plan</li><li data-dot="2">You</li><li data-dot="3">Paperwork</li><li data-dot="4">Pay</li><li data-dot="5">Key</li>
+      </ol>
+
+      <!-- 1 PLAN -->
+      <section class="jstep" data-step="1">
+        <h2 id="join-title">Choose your membership</h2>
+        <p class="jnote">Sample prices for this demo. The owner sets the real rates.</p>
+        <div class="plans" data-plans></div>
+        <p class="jerr" data-err="plan"></p>
+      </section>
+
+      <!-- 2 INFO -->
+      <section class="jstep" data-step="2" hidden>
+        <h2>Your information</h2>
+        <div class="grid2">
+          <label class="jf"><span>First name</span><input name="first" autocomplete="given-name"></label>
+          <label class="jf"><span>Last name</span><input name="last" autocomplete="family-name"></label>
+          <label class="jf"><span>Date of birth</span><input name="dob" type="date"></label>
+          <label class="jf"><span>Phone</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(509) 555-0123"></label>
+          <label class="jf jf-wide"><span>Email</span><input name="email" type="email" autocomplete="email"></label>
+          <label class="jf jf-wide"><span>Street address</span><input name="street" autocomplete="street-address"></label>
+          <label class="jf"><span>City</span><input name="city" autocomplete="address-level2" value="Selah"></label>
+          <label class="jf"><span>ZIP</span><input name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5"></label>
+          <label class="jf"><span>Emergency contact name</span><input name="ecName"></label>
+          <label class="jf"><span>Emergency contact phone</span><input name="ecPhone" type="tel" inputmode="tel"></label>
+        </div>
+        <p class="jerr" data-err="info"></p>
+      </section>
+
+      <!-- 3 PAPERWORK -->
+      <section class="jstep" data-step="3" hidden>
+        <h2>Paperwork</h2>
+        <p class="jnote">Sample documents for this demo. The owner's attorney should review the real wording.</p>
+        <details class="doc" open><summary>Membership agreement &amp; billing</summary>
+          <p>I am joining 24/7 Selah Fitness on the plan I selected. I authorize the gym to charge my card for the plan price on the same day each billing period until I cancel. I can cancel by contacting the gym before my next billing date. My door access stays on while my membership is active.</p></details>
+        <label class="chk"><input type="checkbox" name="agreeMembership"><span>I agree to the membership agreement and billing terms.</span></label>
+        <details class="doc"><summary>Release of liability &amp; assumption of risk</summary>
+          <p>Exercise and use of gym equipment carry a risk of injury. I choose to use the facility at my own risk, including during hours when no staff are present. I release 24/7 Selah Fitness, its owners and staff from claims for injury or loss that happen while I use the facility, except where the law does not allow it.</p></details>
+        <label class="chk"><input type="checkbox" name="agreeWaiver"><span>I have read and accept the liability waiver.</span></label>
+        <details class="doc"><summary>24/7 access rules</summary>
+          <ul><li>Use your own key every time you enter. Don't hold the door for others.</li><li>Don't share your key or code. Your access is for you only.</li><li>Put equipment back and wipe it down after use.</li><li>In an emergency, call 911 first, then the gym at (509) 698-2829.</li></ul></details>
+        <label class="chk"><input type="checkbox" name="agreeRules"><span>I agree to follow the 24/7 access rules.</span></label>
+        <fieldset class="health"><legend>Quick health check</legend>
+          <p class="jnote">If you answer yes to any of these, please check with your doctor before starting a new exercise program.</p>
+          <label class="yn"><span>Has a doctor ever said you have a heart condition?</span><select name="h1"><option value="">Choose</option><option>No</option><option>Yes</option></select></label>
+          <label class="yn"><span>Do you feel chest pain or dizziness during physical activity?</span><select name="h2"><option value="">Choose</option><option>No</option><option>Yes</option></select></label>
+          <label class="yn"><span>Do you have a bone, joint or other condition that exercise could make worse?</span><select name="h3"><option value="">Choose</option><option>No</option><option>Yes</option></select></label>
+        </fieldset>
+        <div class="sig-block">
+          <label class="jf"><span>Type your full name to sign</span><input name="sigName" autocomplete="name"></label>
+          <p class="sig-label">Draw your signature <button type="button" class="link" data-sig-clear>Clear</button></p>
+          <canvas class="sig-pad" data-sig width="600" height="160" aria-label="Signature pad"></canvas>
+          <p class="sig-date">Date: <span data-today></span></p>
+        </div>
+        <p class="jerr" data-err="paper"></p>
+      </section>
+
+      <!-- 4 PAY -->
+      <section class="jstep" data-step="4" hidden>
+        <h2>Payment</h2>
+        <div class="demo-pay">Demo checkout: no card is charged and nothing is saved. Use the test card <b>4242 4242 4242 4242</b>, any future date and any 3 digits.</div>
+        <div class="order" data-order></div>
+        <div class="grid2">
+          <label class="jf jf-wide"><span>Card number</span><input name="card" inputmode="numeric" autocomplete="off" placeholder="4242 4242 4242 4242" maxlength="19"></label>
+          <label class="jf"><span>Expiry (MM/YY)</span><input name="exp" inputmode="numeric" autocomplete="off" placeholder="12/28" maxlength="5"></label>
+          <label class="jf"><span>CVC</span><input name="cvc" inputmode="numeric" autocomplete="off" placeholder="123" maxlength="4"></label>
+          <label class="jf jf-wide"><span>Name on card</span><input name="cardName" autocomplete="off"></label>
+        </div>
+        <p class="jerr" data-err="pay"></p>
+      </section>
+
+      <!-- 5 DONE -->
+      <section class="jstep" data-step="5" hidden>
+        <h2>Welcome to 24/7 Selah Fitness!</h2>
+        <div class="member-card">
+          <p class="mc-brand"><b>24/7</b> Selah Fitness</p>
+          <p class="mc-name" data-mc-name></p>
+          <p class="mc-row"><span>Plan</span><b data-mc-plan></b></p>
+          <p class="mc-row"><span>Member #</span><b data-mc-id></b></p>
+          <p class="mc-row"><span>Paid</span><b data-mc-paid></b></p>
+          <p class="mc-key"><span class="dot"></span>Phone key active</p>
+        </div>
+        <p class="jnote">Your paperwork is signed and your phone key is ready. Use it at the front door any time, day or night.</p>
+      </section>
+
+      <div class="join-nav">
+        <button type="button" class="btn btn-line-dark" data-join-back>Back</button>
+        <button type="button" class="btn btn-gold" data-join-next>Continue</button>
+      </div>
+    </form>
+  </dialog>
+
   <script src="js/site.js"></script>
+  <script src="js/join.js"></script>
 </body>
 </html>
